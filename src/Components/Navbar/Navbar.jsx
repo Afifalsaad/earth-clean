@@ -1,9 +1,11 @@
 import React from "react";
+import icon from "../../assets/icons8-earth-48.png";
+import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
   return (
-    <div className="navbar bg-base-100 shadow-sm">
-      <div className="navbar-start">
+    <div className="navbar bg-[#298d3592] text-white relative">
+      <div className="navbar-start relative z-10">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
@@ -23,53 +25,36 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+            className="bg-gray-50 text-black menu-sm dropdown-content absolute rounded-box z-40 mt-3 w-52 p-2 shadow">
             <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Parent</a>
               <ul className="p-2">
                 <li>
-                  <a>Submenu 1</a>
+                  <a>Home</a>
                 </li>
                 <li>
-                  <a>Submenu 2</a>
+                  <a>Issue</a>
                 </li>
               </ul>
-            </li>
-            <li>
-              <a>Item 3</a>
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <Link to="/" className="btn-ghost text-xl">
+          <img className="w-10" src={icon} alt="" />
+        </Link>
       </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <a>Item 1</a>
-          </li>
-          <li>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </details>
-          </li>
-          <li>
-            <a>Item 3</a>
-          </li>
-        </ul>
-      </div>
+
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <div className="hidden lg:block">
+          <NavLink className='font-semibold mr-4' to='/'>Home</NavLink>
+          <NavLink className='font-semibold mr-4' to='/issue'>Issue</NavLink>
+        </div>
+
+        <button className="btn border-none mr-2 bg-green-800 rounded-md py-1 px-6 font-semibold">
+          Login
+        </button>
+        <button className="btn border-none bg-green-800 rounded-md py-1 px-6 font-semibold">
+          Register
+        </button>
       </div>
     </div>
   );
