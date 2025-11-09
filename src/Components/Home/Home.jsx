@@ -7,10 +7,15 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import garbageIssue from "../../assets/garbage-issue.jpg";
 import cleaning from "../../assets/community-cleaning.jpg";
 import actions from "../../assets/sustainability-actions.jpg";
+import { useLoaderData } from "react-router";
+import IssuesCard from "../IssuesCard/IssuesCard";
 
 const Home = () => {
+  const issues = useLoaderData();
+  console.log(issues);
+
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen">
       <div className="w-10/12 mx-auto my-14">
         <Swiper
           spaceBetween={50}
@@ -81,7 +86,12 @@ const Home = () => {
           </SwiperSlide>
         </Swiper>
       </div>
-      
+
+      <div className="grid grid-cols-3 gap-6 max-w-11/12 mx-auto">
+        {issues.map((issue) => (
+          <IssuesCard key={issue._id} issue={issue}></IssuesCard>
+        ))}
+      </div>
     </div>
   );
 };
