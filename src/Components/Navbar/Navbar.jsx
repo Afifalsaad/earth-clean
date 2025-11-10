@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
   return (
-    <div className="navbar bg-[#298d3592] text-white relative">
+    <div className="navbar bg-[#95cfcfd8] text-white relative">
       <div className="navbar-start relative z-10">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

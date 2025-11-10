@@ -9,6 +9,7 @@ import cleaning from "../../assets/community-cleaning.jpg";
 import actions from "../../assets/sustainability-actions.jpg";
 import { useLoaderData } from "react-router";
 import IssuesCard from "../IssuesCard/IssuesCard";
+import CategoryCards from "../CategoryCards/CategoryCards";
 
 const Home = () => {
   const issues = useLoaderData();
@@ -85,6 +86,10 @@ const Home = () => {
             </div>
           </SwiperSlide>
         </Swiper>
+      </div>
+
+      <div>
+        <CategoryCards></CategoryCards>
       </div>
 
       <div className="grid grid-cols-3 gap-6 max-w-11/12 mx-auto">
