@@ -9,6 +9,11 @@ import Home from "./Components/Home/Home.jsx";
 import Login from "./Components/Pages/Login.jsx";
 import Register from "./Components/Pages/Register.jsx";
 import AuthProvider from "./Provider/AuthProvider.jsx";
+import MyIssues from "./Components/MyIssues/MyIssues.jsx";
+import AddIssues from "./Components/AddIssues/AddIssues.jsx";
+import MyContribution from "./Components/MyContribution/MyContribution.jsx";
+import AllIssues from "./Components/AllIssues/AllIssues.jsx";
+import PrivateRoute from "./Provider/PrivateRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +32,38 @@ const router = createBrowserRouter([
       {
         path: "/register",
         Component: Register,
+      },
+      {
+        path: "/allIssues",
+        element: (
+          <PrivateRoute>
+            <AllIssues></AllIssues>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/myIssues",
+        element: (
+          <PrivateRoute>
+            <MyIssues></MyIssues>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/addIssues",
+        element: (
+          <PrivateRoute>
+            <AddIssues></AddIssues>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/myContribution",
+        element: (
+          <PrivateRoute>
+            <MyContribution></MyContribution>
+          </PrivateRoute>
+        ),
       },
     ],
   },

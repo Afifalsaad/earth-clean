@@ -110,9 +110,9 @@ const Register = () => {
                         onClick={handleShowPassword}
                         className="btn border-none btn-xs absolute top-2 right-2">
                         {showPassword ? (
-                          <IoMdEye className="text-xl" />
-                        ) : (
                           <IoMdEyeOff className="text-xl" />
+                        ) : (
+                          <IoMdEye className="text-xl" />
                         )}
                       </button>
                     </div>
@@ -127,10 +127,10 @@ const Register = () => {
                 </fieldset>
               </form>
               <Link to="/login">
-                <p className="underline">Already have an account?</p>
+                <p className="underline w-full">Already have an account?</p>
               </Link>
               <p className="text-center">
-                ------------------- or -------------------
+                ---------------------------- or ----------------------------
               </p>
               {/* Google */}
               <button

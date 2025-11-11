@@ -5,8 +5,8 @@ import { AuthContext } from "../../Provider/AuthProvider";
 
 const Navbar = () => {
   const { user, logOut } = use(AuthContext);
-  console.log(user);
-  const [logout, setLogout] = useState(false);
+  
+  const [logout, setLogout] = useState(true);
 
   const handleLogout = () => {
     setLogout(!logout);
@@ -23,8 +23,8 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between py-3 items-center bg-[#95cfcfd8] text-white relative">
-      <div className="flex flex-row relative z-10">
+    <div className="flex justify-between py-3 items-center bg-[#95cfcfd8] text-white relative ">
+      <div className="flex flex-row relative z-10 ml-1">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
@@ -62,24 +62,24 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <div className="flex items-center">
+      <div className="flex items-center mr-1">
         <div className="hidden lg:block">
           <NavLink className="font-semibold mr-4" to="/">
             Home
           </NavLink>
-          <NavLink className="font-semibold mr-4" to="/issue">
+          <NavLink className="font-semibold mr-4" to="/allIssues">
             All Issues
           </NavLink>
           {user && (
             <>
               {" "}
-              <NavLink className="font-semibold mr-4" to="/issue">
-                My Issues
-              </NavLink>
-              <NavLink className="font-semibold mr-4" to="/issue">
+              <NavLink className="font-semibold mr-4" to="/addIssues">
                 Add Issue
               </NavLink>
-              <NavLink className="font-semibold mr-4" to="/issue">
+              <NavLink className="font-semibold mr-4" to="/myIssues">
+                My Issues
+              </NavLink>
+              <NavLink className="font-semibold mr-4" to="/myContribution">
                 My Contribution
               </NavLink>
             </>
@@ -88,11 +88,16 @@ const Navbar = () => {
 
         <div>
           {user ? (
-            // <button onClick={handleSignOut} className="btn border-none mr-2 bg-green-800 rounded-md py-1 px-6 font-semibold">{user.displayName}</button>
             <div className="relative flex items-center gap-4 group mr-3">
-              {logout
-                ? ""
-                : <button onClick={handleSignOut} className="bg-sky-950 py-1 px-4 rounded-xl">Logout</button>}
+              {logout ? (
+                ""
+              ) : (
+                <button
+                  onClick={handleSignOut}
+                  className="bg-sky-950 py-1 px-4 rounded-xl hover:cursor-pointer">
+                  Logout
+                </button>
+              )}
 
               <button onClick={handleLogout}>
                 <img
@@ -101,11 +106,6 @@ const Navbar = () => {
                   alt="avatar"
                 />
               </button>
-
-              {/* Tooltip */}
-              {/* <span className="absolute left-1/2 bg-gray-600 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 duration-200 ">
-                {user.displayName}
-              </span> */}
             </div>
           ) : (
             <>

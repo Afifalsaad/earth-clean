@@ -1,24 +1,25 @@
 import React, { use, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import AuthProvider, { AuthContext } from "../../Provider/AuthProvider";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 const Login = () => {
   const { googleLogIn, logIn } = use(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
+  console.log(location);
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    
     const email = e.target.email.value;
     const password = e.target.password.value;
 
     logIn(email, password)
       .then(() => {
-        alert("Logged In")
-        navigate('/');
+        alert("Logged In");
+        navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
         alert(error.message);
@@ -28,8 +29,8 @@ const Login = () => {
   const handleGoogleLogin = () => {
     googleLogIn()
       .then(() => {
-        console.log("user")
-        navigate('/');
+        console.log("user");
+        navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => console.log(error));
   };
@@ -90,7 +91,9 @@ const Login = () => {
                   className="btn btn-neutral border-none bg-black text-white mt-4 mb-2">
                   Login
                 </button>
-                <p className="link link-hover underline">Forgot password?</p>
+                <Link to="/register" className="link link-hover underline">
+                  Register Now
+                </Link>
               </fieldset>
             </form>
             <button
