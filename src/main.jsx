@@ -41,13 +41,16 @@ const router = createBrowserRouter([
             <AllIssues></AllIssues>
           </PrivateRoute>
         ),
-        loader:()=>fetch('http://localhost:3000/allIssues')
+        loader: () => fetch("http://localhost:3000/allIssues"),
       },
       {
-        path:'/issueDetails/:id',
-        element:<PrivateRoute>
-          <IssueDetails></IssueDetails>
-        </PrivateRoute>
+        path: "/issueDetails/:id",
+        element: (
+          <PrivateRoute>
+            <IssueDetails></IssueDetails>
+          </PrivateRoute>
+        ),
+        loader: ({params}) => fetch(`http://localhost:3000/allIssues/${params.id}`),
       },
       {
         path: "/myIssues",
