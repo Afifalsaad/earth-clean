@@ -17,7 +17,7 @@ const Root = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto bg-[#f3feff]">
+    <div className="max-w-7xl mx-auto bg-[#e0fde5]">
       <Navbar></Navbar>
       <Outlet></Outlet>
       <Footer></Footer>

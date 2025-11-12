@@ -5,9 +5,6 @@ import IssueDetails from "../Issue Deatils/IssueDetails";
 const AllIssues = () => {
   const issues = useLoaderData();
   console.log(issues);
-  if(!issues){
-    return <p>Loading...</p>
-  }
 
   return (
     <div className="max-w-6xl my-14 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -32,7 +29,7 @@ const AllIssues = () => {
             </div>
             <Link
               to={`/issueDetails/${issue._id}`}
-              className="bg-sky-950 text-center py-1 px-4 hover:cursor-pointer text-white w-full">
+              className="bg-[#97c09e] text-center py-1 px-4 hover:cursor-pointer text-white w-full">
               See Details
             </Link>
           </div>

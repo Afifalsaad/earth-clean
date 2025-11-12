@@ -1,9 +1,27 @@
-import React, { useRef } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { useLoaderData } from "react-router";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const IssueDetails = () => {
   const issue = useLoaderData();
   const modalRef = useRef();
+  const { user } = use(AuthContext);
+  const [contributed, setContributed] = useState([]);
+  //   console.log(user);
+  const { title, image, location, description, category, amount, _id } = issue;
+
+  const handleModal = () => {
+    modalRef.current.showModal();
+  };
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/allIssues/issue/${_id}`, {})
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setContributed(data);
+      });
+  }, [_id]);
 
   const handleContribute = (e) => {
     e.preventDefault();
@@ -18,16 +36,18 @@ const IssueDetails = () => {
     const info = form.info.value;
     console.log(title, amount, name, email, phoneNumber, address, info);
 
-    fetch("http://localhost:3000/myContribution", {
+    fetch("http://localhost:3000/contribution", {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify({
+        product_id: _id,
         title: title,
         amount: amount,
         name: name,
         email: email,
+        image: user.photoURL,
         phoneNumber: phoneNumber,
         address: address,
         info: info,
@@ -35,16 +55,13 @@ const IssueDetails = () => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        alert("success", data);
+      .then(() => {
+        modalRef.current.close();
+        alert("Success");
       });
+    form.reset();
   };
 
-  const handleModal = () => {
-    modalRef.current.showModal();
-  };
-
-  const { title, image, location, description, category, amount } = issue;
   return (
     <div className="min-h-screen">
       <div className="flex justify-center gap-6 p-12">
@@ -100,6 +117,7 @@ const IssueDetails = () => {
                     />
                     <label className="label mb-1">Email</label>
                     <input
+                      defaultValue={user.email}
                       name="email"
                       type="email"
                       className="input border border-black/15 mb-2"
@@ -135,20 +153,62 @@ const IssueDetails = () => {
 
                 <button
                   onSubmit={handleContribute}
-                  type="submit"
                   className="btn bg-sky-700 mt-6 py-2 px-8 hover:cursor-pointer text-white">
                   Submit
                 </button>
               </form>
               <div className="modal-action">
                 <form method="dialog">
-                  {/* if there is a button in form, it will close the modal */}
                   <button className="btn border-none">Close</button>
                 </form>
               </div>
             </div>
           </dialog>
         </div>
+      </div>
+
+      <h3 className="p-4 text-shadow-sky-90000 text-2xl font-bold max-w-6xl mx-auto">
+        Bids for this Product:{" "}
+        <span className="text-sky-600">{contributed.length}</span>
+      </h3>
+      {/* Contributor */}
+      <div className="overflow-x-auto bg-white/50 max-w-6xl mx-auto mb-14">
+        <table className="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>Name</th>
+              <th>Contributed amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* row 1 */}
+            {contributed.map((c) => (
+              <tr>
+                <th></th>
+                <td>
+                  <div className="flex items-center gap-3">
+                    <div className="avatar">
+                      <div className="mask mask-squircle h-12 w-12">
+                        <img
+                          src={c.image}
+                          alt="Avatar Tailwind CSS Component"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  {c.name}
+                  <br />
+                </td>
+                <td>{c.amount}</td>
+              </tr>
+            ))}
+            {/* row 2 */}
+          </tbody>
+        </table>
       </div>
     </div>
   );

@@ -62,14 +62,13 @@ const StyledWrapper = styled.div`
     display: block;
     position: relative;
     height: 400px;
-    background-color: #f2f8f9;
+    background-color: #97c09e;
     border-radius: 10px;
     padding: 2em 1.2em;
     margin: 12px;
     text-decoration: none;
     z-index: 0;
     overflow: hidden;
-    background: linear-gradient(to bottom, #c3e6ec, #a7d1d9);
     font-family: Arial, Helvetica, sans-serif;
   }
 

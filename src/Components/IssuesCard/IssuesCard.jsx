@@ -1,6 +1,8 @@
 import React from "react";
+import { Link } from "react-router";
 
 const IssuesCard = ({ issue }) => {
+  console.log(issue);
   return (
     <div className="card bg-white card-lg shadow-sm">
       <div className="card-body">
@@ -8,9 +10,12 @@ const IssuesCard = ({ issue }) => {
         <h3>{issue.description}</h3>
         <p>{issue.category}</p>
         <p>{issue.location}</p>
-        <p>{issue.date}</p>
         <div className="justify-end card-actions">
-          <button className="btn btn-primary w-full">View Details</button>
+          <Link
+            to={`/issueDetails/${issue._id}`}
+            className="btn btn-primary w-full">
+            View Details
+          </Link>
         </div>
       </div>
     </div>
