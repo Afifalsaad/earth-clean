@@ -92,7 +92,7 @@ const Home = () => {
         <CategoryCards></CategoryCards>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-11/12 mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-11/12  my-14 mx-auto">
         {issues.map((issue) => (
           <IssuesCard key={issue._id} issue={issue}></IssuesCard>
         ))}

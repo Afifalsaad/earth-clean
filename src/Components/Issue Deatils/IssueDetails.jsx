@@ -7,7 +7,6 @@ const IssueDetails = () => {
   const modalRef = useRef();
   const { user } = use(AuthContext);
   const [contributed, setContributed] = useState([]);
-  //   console.log(user);
   const { title, image, location, description, category, amount, _id } = issue;
 
   const handleModal = () => {
@@ -184,9 +183,9 @@ const IssueDetails = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            {contributed.map((c) => (
+            {contributed.map((c , index) => (
               <tr>
-                <th></th>
+                <th>{index + 1}</th>
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
