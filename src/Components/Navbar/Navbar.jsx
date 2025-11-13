@@ -4,16 +4,13 @@ import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useTheme } from "next-themes";
 
-
 const Navbar = () => {
   const { user, logOut } = use(AuthContext);
   const [logout, setLogout] = useState(true);
-  // const {theme , setTheme} = useTheme()
-
-  // const handleTheme = ()=>{
-  //   setTheme(!theme)
-  //   console.log('clicked')
-  // }
+    const {theme, setTheme} = useTheme();
+    if(!theme){
+      return null
+    }
 
   const handleLogout = () => {
     setLogout(!logout);
@@ -81,8 +78,8 @@ const Navbar = () => {
           <img className="w-10" src={icon} alt="" />
         </Link>
       </div>
-      
-      <button className="font-bold">Theme</button>
+
+      <button onClick={()=>setTheme(!theme)} className="font-bold">{theme}</button>
 
       <div className="flex items-center mr-1">
         <div className="hidden lg:block">

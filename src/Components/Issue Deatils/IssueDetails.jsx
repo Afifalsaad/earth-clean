@@ -15,7 +15,7 @@ const IssueDetails = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/allIssues/issue/${_id}`)
+    fetch(`https://assignment-10-server-jet-nine.vercel.app/allIssues/issue/${_id}`)
       .then((res) => res.json())
       .then((data) => {
         setContributed(data);
@@ -47,7 +47,7 @@ const IssueDetails = () => {
       date: new Date(),
     };
 
-    fetch("http://localhost:3000/contribution", {
+    fetch("https://assignment-10-server-jet-nine.vercel.app/contribution", {
       method: "POST",
       headers: {
         "content-type": "application/json",

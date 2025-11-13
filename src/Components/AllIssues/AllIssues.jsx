@@ -7,7 +7,7 @@ const AllIssues = () => {
 
 
   return (
-    <div className="max-w-6xl my-14 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-3 dark:text-base-200">
+    <div className="max-w-6xl my-14 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-3">
       {issues.map((issue) => (
         <div className="card bg-[#e7ecf9] shadow-sm">
           <img

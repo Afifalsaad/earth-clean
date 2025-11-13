@@ -1,7 +1,7 @@
 import React, { use } from "react";
 import styled from "styled-components";
 
-const dataPromise = fetch("http://localhost:3000/categoryCards")
+const dataPromise = fetch("https://assignment-10-server-jet-nine.vercel.app/categoryCards")
   .then((res) => res.json())
   .then((data) => {
     return data;
@@ -14,7 +14,7 @@ const CategoryCards = () => {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 max-w-11/12 mx-auto my-14">
       {data1.map((d) => (
         <StyledWrapper>
-          <h1 className="text-center">{d.category}</h1>
+          <h1 className="text-center dark:text-white">{d.category}</h1>
           <div className="card hover:cursor-pointer">
             <img
               className="w-[300px] mx-auto md:w-[300px] h-[150px]"

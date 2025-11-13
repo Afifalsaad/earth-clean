@@ -25,7 +25,8 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
-        loader: () => fetch("http://localhost:3000/issues"),
+        loader: () =>
+          fetch("https://assignment-10-server-jet-nine.vercel.app/issues"),
       },
       {
         path: "/login",
@@ -42,7 +43,8 @@ const router = createBrowserRouter([
             <AllIssues></AllIssues>
           </PrivateRoute>
         ),
-        loader: () => fetch("http://localhost:3000/allIssues"),
+        loader: () =>
+          fetch("https://assignment-10-server-jet-nine.vercel.app/allIssues"),
       },
       {
         path: "/issueDetails/:id",
@@ -52,7 +54,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/allIssues/${params.id}`),
+          fetch(
+            `https://assignment-10-server-jet-nine.vercel.app/allIssues/${params.id}`
+          ),
       },
       {
         path: "/myIssues",
@@ -85,7 +89,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
-      <RouterProvider router={router}></RouterProvider>
+      <ThemeProvider attribute='class' defaultTheme="light" enableSystem={false}>
+        <RouterProvider router={router}></RouterProvider>
+      </ThemeProvider>
     </AuthProvider>
   </StrictMode>
 );

@@ -3,18 +3,22 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 
 const MyIssues = () => {
-  const { user, setLoading } = useContext(AuthContext);
+  const { user, loading, setLoading } = useContext(AuthContext);
   const [issues, setIssues] = useState([]);
   const modalRef = useRef();
   const [selectedIssue, setSelectedIssue] = useState([]);
 
+  setLoading(true);
   useEffect(() => {
-    fetch(`http://localhost:3000/myIssues?email=${user.email}`)
+    fetch(
+      `https://assignment-10-server-jet-nine.vercel.app/myIssues?email=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setIssues(data);
-      });
-  }, [user, setLoading]);
+       });
+  }, [user]);
+  setLoading(false);
 
   const handleModal = (issue) => {
     setSelectedIssue(issue);
@@ -30,13 +34,16 @@ const MyIssues = () => {
       amount: e.target.amount.value,
       category: e.target.category.value,
     };
-    fetch(`http://localhost:3000/addIssues/${selectedIssue._id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updatedData),
-    })
+    fetch(
+      `https://assignment-10-server-jet-nine.vercel.app/addIssues/${selectedIssue._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updatedData),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount) {
@@ -78,9 +85,12 @@ const MyIssues = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/addIssues/${issue._id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://assignment-10-server-jet-nine.vercel.app/addIssues/${issue._id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount) {
@@ -99,16 +109,16 @@ const MyIssues = () => {
   };
 
   return (
-    <div className="dark:text-white">
-      <h1 className="text-center text-2xl font-bold my-7 ">
+    <div className="">
+      <h1 className="text-center dark:text-white text-2xl font-bold my-7 ">
         My Issues : <span className="text-[#0084d1]">{issues.length}</span>
       </h1>
       <div className="overflow-x-auto min-h-screen max-w-6xl mx-auto mb-14">
-        <div className="md:hidden space-y-4 p-2">
+        <div className="md:hidden space-y-4 p-2 ">
           {issues.map((issue, index) => (
             <div
               key={issue._id}
-              className="border p-4 rounded shadow bg-sky-100">
+              className="border dark:text-red-500 p-4 rounded shadow bg-sky-100">
               <p className="font-bold">
                 {index + 1}. {issue.title}
               </p>
@@ -126,74 +136,74 @@ const MyIssues = () => {
               </button>
               {/* // Modal */}
               <dialog
-              ref={modalRef}
-              className="modal modal-bottom sm:modal-middle">
-              <div className="modal-box bg-white">
-                <h3 className="font-bold text-2xl mb-6">
-                  Update Your Selection
-                </h3>
+                ref={modalRef}
+                className="modal modal-bottom sm:modal-middle">
+                <div className="modal-box bg-white">
+                  <h3 className="font-bold text-2xl mb-6">
+                    Update Your Selection
+                  </h3>
 
-                <form onSubmit={handleUpdate}>
-                  <fieldset className="fieldset grid grid-cols-2 gap-6">
-                    <div>
-                      <label className="label">Title</label>
-                      <input
-                        defaultValue={selectedIssue.title}
-                        name="title"
-                        type="text"
-                        className="input w-full border border-black/15 mb-2"
-                        placeholder="Issue title"
-                      />
-                      <label className="label mb-1">Amount</label>
-                      <input
-                        defaultValue={selectedIssue.amount}
-                        name="amount"
-                        type="text"
-                        className="input border border-black/15 mb-2"
-                        placeholder="Amount"
-                      />
-                      <label className="label mb-1">Category</label>
-                      <input
-                        defaultValue={selectedIssue.category}
-                        name="category"
-                        type="name"
-                        className="input border border-black/15 mb-2"
-                        placeholder="Name"
-                      />
-                      <fieldset className="fieldset">
-                        <legend>Status</legend>
-                        <select
-                          name="status"
-                          defaultValue={selectedIssue.status}
-                          className="select bg-white/30">
-                          <div className="bg-white">
-                            <option>Select</option>
-                            <option>ongoing</option>
-                            <option>ended</option>
-                          </div>
-                        </select>
-                      </fieldset>
-                    </div>
-                  </fieldset>
+                  <form onSubmit={handleUpdate}>
+                    <fieldset className="fieldset grid grid-cols-2 gap-6">
+                      <div>
+                        <label className="label">Title</label>
+                        <input
+                          defaultValue={selectedIssue.title}
+                          name="title"
+                          type="text"
+                          className="input w-full border border-black/15 mb-2"
+                          placeholder="Issue title"
+                        />
+                        <label className="label mb-1">Amount</label>
+                        <input
+                          defaultValue={selectedIssue.amount}
+                          name="amount"
+                          type="text"
+                          className="input border border-black/15 mb-2"
+                          placeholder="Amount"
+                        />
+                        <label className="label mb-1">Category</label>
+                        <input
+                          defaultValue={selectedIssue.category}
+                          name="category"
+                          type="name"
+                          className="input border border-black/15 mb-2"
+                          placeholder="Name"
+                        />
+                        <fieldset className="fieldset">
+                          <legend>Status</legend>
+                          <select
+                            name="status"
+                            defaultValue={selectedIssue.status}
+                            className="select bg-white/30">
+                            <div className="bg-white">
+                              <option>Select</option>
+                              <option>ongoing</option>
+                              <option>ended</option>
+                            </div>
+                          </select>
+                        </fieldset>
+                      </div>
+                    </fieldset>
 
-                  <button className="btn bg-sky-700 mt-6 py-2 px-8 hover:cursor-pointer text-white">
-                    Submit
-                  </button>
-                </form>
-                <div className="modal-action">
-                  <form method="dialog">
-                    <button className="btn border-none">Close</button>
+                    <button className="btn bg-sky-700 mt-6 py-2 px-8 hover:cursor-pointer text-white">
+                      Submit
+                    </button>
                   </form>
+                  <div className="modal-action">
+                    <form method="dialog">
+                      <button className="btn border-none">Close</button>
+                    </form>
+                  </div>
                 </div>
-              </div>
-            </dialog>
+              </dialog>
             </div>
-
-            
           ))}
         </div>
         {issues.length === 0 ? (
-          <div className="flex justify-center items-center min-h-screen"><p className="font-semibold text-xl">No Data Found</p></div>
+          <div className="flex justify-center items-center min-h-screen">
+            <p className="font-semibold text-xl">No Data Found</p>
+          </div>
         ) : (
           <div className="hidden lg:block dark:text-base-200">
             <table className="table bg-white">

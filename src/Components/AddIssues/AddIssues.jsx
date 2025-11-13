@@ -20,7 +20,7 @@ const AddIssues = () => {
     const amount = e.target.amount.value;
     const status = e.target.status.value;
 
-    fetch("http://localhost:3000/addIssues", {
+    fetch("https://assignment-10-server-jet-nine.vercel.app/addIssues", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -55,7 +55,7 @@ const AddIssues = () => {
       <div>
         <Toaster />
       </div>
-      <div className="hero dark:bg-base-200 dark:text-base-200 min-h-screen">
+      <div className="hero min-h-screen">
         <div className="flex-col lg:flex-row-reverse">
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
             <div className="card-body bg-[#e7ecf9]">
