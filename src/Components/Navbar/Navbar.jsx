@@ -2,12 +2,18 @@ import React, { use, useState } from "react";
 import icon from "../../assets/icons8-earth-48.png";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../Provider/AuthProvider";
-import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
+import { useTheme } from "next-themes";
+
 
 const Navbar = () => {
   const { user, logOut } = use(AuthContext);
-
   const [logout, setLogout] = useState(true);
+  // const {theme , setTheme} = useTheme()
+
+  // const handleTheme = ()=>{
+  //   setTheme(!theme)
+  //   console.log('clicked')
+  // }
 
   const handleLogout = () => {
     setLogout(!logout);
@@ -19,7 +25,7 @@ const Navbar = () => {
         alert("Logged Out");
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   };
 
@@ -75,8 +81,8 @@ const Navbar = () => {
           <img className="w-10" src={icon} alt="" />
         </Link>
       </div>
-      {/* Theme Controller */}
-      <ThemeSwitch></ThemeSwitch>
+      
+      <button className="font-bold">Theme</button>
 
       <div className="flex items-center mr-1">
         <div className="hidden lg:block">
@@ -128,12 +134,12 @@ const Navbar = () => {
             <>
               <Link
                 to="/login"
-                className="btn border-none mr-2 bg-green-800 rounded-md py-1 px-6 font-semibold">
+                className="bg-sky-950 dark:text-white-200 py-2 mr-2 px-4 rounded-xl hover:cursor-pointer">
                 Login
               </Link>
               <Link
                 to="/register"
-                className="btn border-none bg-green-800 rounded-md py-1 px-6 font-semibold">
+                className="bg-sky-950 dark:text-white-200 py-2 mr-2 px-4 rounded-xl hover:cursor-pointer">
                 Register
               </Link>
             </>

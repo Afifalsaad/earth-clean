@@ -5,10 +5,11 @@ import Swal from "sweetalert2";
 
 const AddIssues = () => {
   const { user } = use(AuthContext);
-  // console.log(user);
+  
 
   const handleAddIssue = (e) => {
     e.preventDefault();
+    
 
     const title = e.target.title.value;
     const select = e.target.select.value;
@@ -37,12 +38,14 @@ const AddIssues = () => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
         Swal.fire({
           title: "Issue Added!",
           icon: "success",
+          
           // draggable: true
         });
+        
       });
       e.target.reset()
   };
@@ -52,7 +55,7 @@ const AddIssues = () => {
       <div>
         <Toaster />
       </div>
-      <div className="hero min-h-screen">
+      <div className="hero dark:bg-base-200 dark:text-base-200 min-h-screen">
         <div className="flex-col lg:flex-row-reverse">
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
             <div className="card-body bg-[#e7ecf9]">

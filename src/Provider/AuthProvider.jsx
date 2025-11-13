@@ -33,8 +33,6 @@ const AuthProvider = ({ children }) => {
         displayName: displayName,
         photoURL: photoURL,
       });
-    } else {
-      console.log("No user Found");
     }
   };
 

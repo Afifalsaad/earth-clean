@@ -6,7 +6,6 @@ import { Link } from "react-router";
 const Register = () => {
   const { signIn, googleLogIn, user, setUser, setNameAndPhoto } =
     use(AuthContext);
-  console.log(user);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleRegister = (e) => {
@@ -15,8 +14,7 @@ const Register = () => {
     const name = e.target.name.value;
     const email = e.target.email.value;
     const photoURL = e.target.photoURL.value;
-    const password = e.target.password.value;
-    console.log(email, password, photoURL, name);
+    const password = e.target.password.value;;
     const passWordPattern = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
     if (!passWordPattern.test(password)) {
@@ -42,7 +40,7 @@ const Register = () => {
             // setUser({ ...user, displayName: name, photoURL: photoURL });
           })
           .catch((error) => {
-            console.log(error);
+            alert(error);
           });
       })
       .catch((error) => {
@@ -59,9 +57,8 @@ const Register = () => {
   const handleGoogleLogin = () => {
     googleLogIn()
       .then(() => {
-        console.log("user");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => alert(error));
   };
 
   return (

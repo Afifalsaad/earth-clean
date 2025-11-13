@@ -15,7 +15,7 @@ import MyContribution from "./Components/MyContribution/MyContribution.jsx";
 import AllIssues from "./Components/AllIssues/AllIssues.jsx";
 import PrivateRoute from "./Provider/PrivateRoute.jsx";
 import IssueDetails from "./Components/Issue Deatils/IssueDetails.jsx";
-import ThemeProvider from "./Provider/ThemeProvider.jsx";
+import { ThemeProvider } from "next-themes";
 
 const router = createBrowserRouter([
   {
@@ -85,9 +85,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
-      <ThemeProvider>
-        <RouterProvider router={router}></RouterProvider>
-      </ThemeProvider>
+      <RouterProvider router={router}></RouterProvider>
     </AuthProvider>
   </StrictMode>
 );

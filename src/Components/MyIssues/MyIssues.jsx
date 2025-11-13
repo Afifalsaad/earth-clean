@@ -18,13 +18,11 @@ const MyIssues = () => {
 
   const handleModal = (issue) => {
     setSelectedIssue(issue);
-    console.log(issue);
     modalRef.current.showModal();
   };
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    console.log(selectedIssue._id);
 
     const updatedData = {
       title: e.target.title.value,
@@ -101,8 +99,8 @@ const MyIssues = () => {
   };
 
   return (
-    <div>
-      <h1 className="text-center text-2xl font-bold my-7">
+    <div className="dark:text-white">
+      <h1 className="text-center text-2xl font-bold my-7 ">
         My Issues : <span className="text-[#0084d1]">{issues.length}</span>
       </h1>
       <div className="overflow-x-auto min-h-screen max-w-6xl mx-auto mb-14">
@@ -197,7 +195,7 @@ const MyIssues = () => {
         {issues.length === 0 ? (
           <div className="flex justify-center items-center min-h-screen"><p className="font-semibold text-xl">No Data Found</p></div>
         ) : (
-          <div className="hidden lg:block">
+          <div className="hidden lg:block dark:text-base-200">
             <table className="table bg-white">
               <thead>
                 <tr>

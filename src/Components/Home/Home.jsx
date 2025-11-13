@@ -11,6 +11,8 @@ import { useLoaderData } from "react-router";
 import IssuesCard from "../IssuesCard/IssuesCard";
 import CategoryCards from "../CategoryCards/CategoryCards";
 import { AuthContext } from "../../Provider/AuthProvider";
+import CommunityState from "../CommunityStats.jsx/CommunityState";
+import JoinCommunity from "../JoinCommunity/JoinCommunity";
 
 const Home = () => {
   const issues = useLoaderData();
@@ -118,6 +120,15 @@ const Home = () => {
           <IssuesCard key={issue._id} issue={issue}></IssuesCard>
         ))}
       </div>
+
+      <div>
+        <CommunityState></CommunityState>
+      </div>
+
+      <div className="my-14">
+        <JoinCommunity></JoinCommunity>
+      </div>
+
     </div>
   );
 };

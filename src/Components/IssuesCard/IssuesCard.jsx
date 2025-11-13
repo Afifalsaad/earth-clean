@@ -5,11 +5,11 @@ const IssuesCard = ({ issue }) => {
   const sortedDetails = issue.description.slice(0, 250);
 
   return (
-    <div className="bg-white">
+    <div className="bg-white dark:text-base-200">
       <div className="card card-lg ">
         <div className="card-body min-h-[300px]">
           <h2 className="card-title min-h-16">{issue.title}</h2>
-          <p className="min-h-[180px]">{sortedDetails}...</p>
+          <p className="min-h-[180px] ">{sortedDetails}...</p>
           <p><span className="font-semibold">Category:</span> {issue.category}</p>
           <p><span className="font-semibold">Location:</span> {issue.location}</p>
         </div>

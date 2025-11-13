@@ -39,16 +39,15 @@ const MyContribution = () => {
     fetch(`http://localhost:3000/myContribution?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("data from contribution", data);
         setContributions(data);
       });
   }, [user]);
 
   return (
-    <div>
-      <h1 className="text-center text-2xl font-bold my-7">
+    <div className="dark:text-base-200">
+      <h1 className="text-center text-2xl font-bold my-7 dark:text-white">
         My Contribution :{" "}
-        <span className="text-[#0084d1]">{contributions.length}</span>
+        <span className="text-[#0084d1] text-2xl">{contributions.length}</span>
       </h1>
       <div className="overflow-x-auto min-h-screen max-w-4xl md:max-w-6xl mx-auto mb-14">
         {/* Responsive */}
