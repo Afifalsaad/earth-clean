@@ -46,6 +46,8 @@ const IssueDetails = () => {
       date: new Date(),
     };
 
+    setLoading
+
     fetch("http://localhost:3000/contribution", {
       method: "POST",
       headers: {

@@ -15,6 +15,7 @@ const MyIssues = () => {
       });
   }, [user]);
 
+
   const handleModal = (issue) => {
     setSelectedIssue(issue);
     console.log(issue);

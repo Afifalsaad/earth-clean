@@ -1,8 +1,8 @@
 import React, { use, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { FaCloudDownloadAlt } from "react-icons/fa";
-import { jsPDF } from 'jspdf'
-import  autoTable  from 'jspdf-autotable'
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
 
 const MyContribution = () => {
   const { user } = use(AuthContext);
@@ -28,7 +28,7 @@ const MyContribution = () => {
       tableRows.push(row);
     });
 
-    autoTable(doc,{
+    autoTable(doc, {
       head: [tableColumn],
       body: tableRows,
       startY: 20,
@@ -36,10 +36,6 @@ const MyContribution = () => {
 
     doc.save("my_contributions.pdf");
   };
-
-  useEffect(()=>{
-    document.title = 'My Contribution'
-  })
 
   useEffect(() => {
     fetch(`http://localhost:3000/myContribution?email=${user.email}`)
