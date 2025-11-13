@@ -21,6 +21,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
+      setLoading(true)
       setUser(currentUser);
       setLoading(false);
     });
@@ -38,10 +39,12 @@ const AuthProvider = ({ children }) => {
   };
 
   const signIn = (email, password) => {
+    
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const logIn = (email, password) => {
+    // setLoading(true)
     return signInWithEmailAndPassword(auth, email, password);
   };
 

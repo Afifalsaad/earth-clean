@@ -1,6 +1,7 @@
 import React, { use } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import toast, { Toaster } from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const AddIssues = () => {
   const { user } = use(AuthContext);
@@ -37,8 +38,11 @@ const AddIssues = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        toast.success("data added successfully");
-        console.log(data);
+        Swal.fire({
+          title: "Issue Added!",
+          icon: "success",
+          // draggable: true
+        });
       });
       e.target.reset()
   };

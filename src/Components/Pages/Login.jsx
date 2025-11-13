@@ -4,27 +4,41 @@ import AuthProvider, { AuthContext } from "../../Provider/AuthProvider";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 const Login = () => {
-  const { googleLogIn, logIn } = use(AuthContext);
+  const { googleLogIn, logIn, setLoading, loading } = use(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location);
+
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     const email = e.target.email.value;
     const password = e.target.password.value;
-
+    setLoading(true);
     logIn(email, password)
       .then(() => {
         alert("Logged In");
         navigate(`${location.state ? location.state : "/"}`);
+        setLoading(false);
       })
       .catch((error) => {
         alert(error.message);
+        setLoading(false);
       });
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center mx-auto">
+        <div class="loader">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    );
+  }
 
   const handleGoogleLogin = () => {
     googleLogIn()

@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -14,6 +14,27 @@ import { AuthContext } from "../../Provider/AuthProvider";
 
 const Home = () => {
   const issues = useLoaderData();
+  const [issue, setIssue] = useState([]);
+  const { loading, setLoading } = use(AuthContext);
+
+  useEffect(() => {
+    if (issues) {
+      setIssue(issues);
+      setLoading(false);
+    }
+  }, [issues, setLoading]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <div className="loader">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen">

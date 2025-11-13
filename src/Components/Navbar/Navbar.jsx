@@ -2,10 +2,11 @@ import React, { use, useState } from "react";
 import icon from "../../assets/icons8-earth-48.png";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../Provider/AuthProvider";
+import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
 
 const Navbar = () => {
   const { user, logOut } = use(AuthContext);
-  
+
   const [logout, setLogout] = useState(true);
 
   const handleLogout = () => {
@@ -47,12 +48,25 @@ const Navbar = () => {
             className="bg-gray-50 text-black menu-sm dropdown-content absolute rounded-box z-40 mt-3 w-52 p-2 shadow">
             <li>
               <ul className="p-2">
-                <li>
-                  <a>Home</a>
-                </li>
-                <li>
-                  <a>Issue</a>
-                </li>
+                <NavLink className="" to="/">
+                  Home
+                </NavLink>
+                <br />
+                <NavLink className="" to="/allIssues">
+                  All Issues
+                </NavLink>
+                <br />
+                <NavLink className="" to="/addIssues">
+                  Add Issue
+                </NavLink>
+                <br />
+                <NavLink className="" to="/myIssues">
+                  My Issues
+                </NavLink>
+                <br />
+                <NavLink className="" to="/myContribution">
+                  My Contribution
+                </NavLink>
               </ul>
             </li>
           </ul>
@@ -61,6 +75,8 @@ const Navbar = () => {
           <img className="w-10" src={icon} alt="" />
         </Link>
       </div>
+      {/* Theme Controller */}
+      <ThemeSwitch></ThemeSwitch>
 
       <div className="flex items-center mr-1">
         <div className="hidden lg:block">
@@ -70,6 +86,7 @@ const Navbar = () => {
           <NavLink className="font-semibold mr-4" to="/allIssues">
             All Issues
           </NavLink>
+
           {user && (
             <>
               {" "}

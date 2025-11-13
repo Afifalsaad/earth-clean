@@ -1,6 +1,7 @@
 import React, { use, useEffect, useRef, useState } from "react";
 import { useLoaderData } from "react-router";
 import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const IssueDetails = () => {
   const issues = useLoaderData();
@@ -46,8 +47,6 @@ const IssueDetails = () => {
       date: new Date(),
     };
 
-    setLoading
-
     fetch("http://localhost:3000/contribution", {
       method: "POST",
       headers: {
@@ -58,7 +57,10 @@ const IssueDetails = () => {
       .then((res) => res.json())
       .then(() => {
         modalRef.current.close();
-        alert("Success");
+        Swal.fire({
+          title: "Thanks for your contribution!",
+          icon: "success",
+        });
         setContributed((data) => [...data, contribution]);
       });
     form.reset();
@@ -66,10 +68,10 @@ const IssueDetails = () => {
 
   return (
     <div className="min-h-screen">
-      <div className="flex justify-center gap-6 p-12">
+      <div className="flex flex-col lg:flex-row justify-center gap-6 p-3 lg:p-12">
         <div>
           <img
-            className="min-w-[400px] min-h-[500px] object-cover"
+            className="min-w-8/12 md:min-w-[400px] min-h-[500px] object-cover"
             src={image}
             alt=""
           />

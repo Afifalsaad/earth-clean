@@ -15,6 +15,7 @@ import MyContribution from "./Components/MyContribution/MyContribution.jsx";
 import AllIssues from "./Components/AllIssues/AllIssues.jsx";
 import PrivateRoute from "./Provider/PrivateRoute.jsx";
 import IssueDetails from "./Components/Issue Deatils/IssueDetails.jsx";
+import ThemeProvider from "./Provider/ThemeProvider.jsx";
 
 const router = createBrowserRouter([
   {
@@ -50,7 +51,8 @@ const router = createBrowserRouter([
             <IssueDetails></IssueDetails>
           </PrivateRoute>
         ),
-        loader: ({params}) => fetch(`http://localhost:3000/allIssues/${params.id}`),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/allIssues/${params.id}`),
       },
       {
         path: "/myIssues",
@@ -83,7 +85,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
-      <RouterProvider router={router}></RouterProvider>
+      <ThemeProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </ThemeProvider>
     </AuthProvider>
   </StrictMode>
 );
