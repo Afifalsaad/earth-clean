@@ -5,8 +5,9 @@ import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 
 const MyContribution = () => {
-  const { user, setLoading } = use(AuthContext);
+  const { user } = use(AuthContext);
   const [contributions, setContributions] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
@@ -36,28 +37,36 @@ const MyContribution = () => {
   };
 
   useEffect(() => {
-    // setLoading(true);
+    setLoading(true);
     fetch(
       `https://assignment-10-server-jet-nine.vercel.app/myContribution?email=${user.email}`
     )
       .then((res) => res.json())
       .then((data) => {
         setContributions(data);
-        // setLoading(false);
+        setLoading(false);
       });
   }, [user?.email]);
 
   return (
-    <div className="dark:text-base-200">
-      <h1 className="text-center text-2xl font-bold my-7 dark:text-white">
+    <div>
+      <h1 className="text-center text-2xl font-bold my-7">
         My Contribution :{" "}
         <span className="text-[#0084d1] text-2xl">{contributions.length}</span>
       </h1>
       <div className="overflow-x-auto min-h-screen max-w-4xl md:max-w-6xl mx-auto mb-14">
         {/* Responsive */}
-        {contributions.length === 0 ? (
+        {loading ? (
+          <div className="min-h-screen flex justify-center items-center mx-auto">
+            <div class="loader">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        ) : contributions.length === 0 ? (
           <div className="flex justify-center items-center min-h-screen">
-            <p className="font-semibold text-xl dark:text-white">
+            <p className="font-semibold text-xl">
               No Data Found
             </p>
           </div>

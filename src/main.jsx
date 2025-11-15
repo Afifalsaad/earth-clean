@@ -16,6 +16,7 @@ import AllIssues from "./Components/AllIssues/AllIssues.jsx";
 import PrivateRoute from "./Provider/PrivateRoute.jsx";
 import IssueDetails from "./Components/Issue Deatils/IssueDetails.jsx";
 import { ThemeProvider } from "next-themes";
+import ErrorPage from "./Components/Pages/ErrorPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -84,14 +85,16 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/*",
+    Component: ErrorPage,
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
-      <ThemeProvider attribute='class' defaultTheme="light" enableSystem={false}>
-        <RouterProvider router={router}></RouterProvider>
-      </ThemeProvider>
+      <RouterProvider router={router}></RouterProvider>
     </AuthProvider>
   </StrictMode>
 );

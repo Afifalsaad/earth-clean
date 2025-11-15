@@ -1,12 +1,14 @@
 import React, { use, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { Link } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 const Register = () => {
-  const { signIn, googleLogIn, user, setUser, setNameAndPhoto } =
+  const { signIn, googleLogIn, setNameAndPhoto } =
     use(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate()
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -14,7 +16,7 @@ const Register = () => {
     const name = e.target.name.value;
     const email = e.target.email.value;
     const photoURL = e.target.photoURL.value;
-    const password = e.target.password.value;;
+    const password = e.target.password.value;
     const passWordPattern = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
     if (!passWordPattern.test(password)) {
@@ -34,19 +36,29 @@ const Register = () => {
 
     signIn(email, password)
       .then(() => {
-        alert("Sign In Successful");
+        {
+          Swal.fire({
+            title: "Register Successful",
+            icon: "success",
+          });
+          navigate('/')
+        }
         setNameAndPhoto(name, photoURL)
-          .then(() => {
-            // setUser({ ...user, displayName: name, photoURL: photoURL });
-          })
-          .catch((error) => {
-            alert(error);
+          .then(() => {})
+          .catch(() => {
+            Swal.fire({
+              title: "Login Error",
+              icon: "error",
+            });
           });
       })
-      .catch((error) => {
-        alert(error.message);
-      });
-    // e.target.reset();
+      .catch(() =>
+        Swal.fire({
+          title: "Login Error",
+          icon: "error",
+        })
+      );
+    e.target.reset();
   };
 
   const handleShowPassword = (e) => {
@@ -57,8 +69,17 @@ const Register = () => {
   const handleGoogleLogin = () => {
     googleLogIn()
       .then(() => {
+        Swal.fire({
+          title: "Register Successful",
+          icon: "success",
+        });
+        <Navigate to='/'></Navigate>
       })
-      .catch((error) => alert(error));
+      .catch(() =>
+        Swal.fire({
+          title: "Error",
+        })
+      );
   };
 
   return (
@@ -119,7 +140,7 @@ const Register = () => {
                     <a className="link link-hover">Forgot password?</a>
                   </div>
                   <button type="submit" className="btn btn-neutral mt-4">
-                    Login
+                    Register
                   </button>
                 </fieldset>
               </form>

@@ -2,6 +2,7 @@ import React, { use, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import AuthProvider, { AuthContext } from "../../Provider/AuthProvider";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { googleLogIn, logIn, setLoading, loading } = use(AuthContext);
@@ -14,15 +15,24 @@ const Login = () => {
 
     const email = e.target.email.value;
     const password = e.target.password.value;
-    setLoading(true);
     logIn(email, password)
       .then(() => {
-        alert("Logged In");
+        {
+          Swal.fire({
+            title: "Login Successful",
+            icon: "success",
+          });
+        }
         navigate(`${location.state ? location.state : "/"}`);
         setLoading(false);
       })
       .catch((error) => {
-        alert(error.message);
+        {
+          Swal.fire({
+            title: "Login Error",
+            icon: "error",
+          });
+        };
         setLoading(false);
       });
   };
@@ -42,9 +52,20 @@ const Login = () => {
   const handleGoogleLogin = () => {
     googleLogIn()
       .then(() => {
+        {
+          Swal.fire({
+            title: "Login Successful",
+            icon: "success",
+          });
+        }
         navigate(`${location.state ? location.state : "/"}`);
       })
-      .catch((error) => alert(error));
+      .catch(() => {
+        Swal.fire({
+          title: "Login Error",
+          icon: "error",
+        });
+      });
   };
 
   const handleShowPassword = (e) => {

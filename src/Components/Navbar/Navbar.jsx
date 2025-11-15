@@ -2,15 +2,12 @@ import React, { use, useState } from "react";
 import icon from "../../assets/icons8-earth-48.png";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { useTheme } from "next-themes";
+import { RxAvatar } from "react-icons/rx";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { user, logOut } = use(AuthContext);
   const [logout, setLogout] = useState(true);
-    const {theme, setTheme} = useTheme();
-    if(!theme){
-      return null
-    }
 
   const handleLogout = () => {
     setLogout(!logout);
@@ -19,11 +16,14 @@ const Navbar = () => {
   const handleSignOut = () => {
     logOut()
       .then(() => {
-        alert("Logged Out");
+        {
+          Swal.fire({
+            title: "Logout Successful",
+            icon: "success",
+          });
+        }
       })
-      .catch((error) => {
-        // console.log(error);
-      });
+      .catch(() => {});
   };
 
   return (
@@ -79,8 +79,6 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <button onClick={()=>setTheme(!theme)} className="font-bold">{theme}</button>
-
       <div className="flex items-center mr-1">
         <div className="hidden lg:block">
           <NavLink className="font-semibold mr-4" to="/">
@@ -120,11 +118,15 @@ const Navbar = () => {
               )}
 
               <button onClick={handleLogout}>
-                <img
-                  className="w-9 h-9 object-cover rounded-full hover:cursor-pointer"
-                  src={user.photoURL || "/default-avatar.png"}
-                  alt="avatar"
-                />
+                {user.photoURL ? (
+                  <img
+                    className="w-9 h-9 object-cover rounded-full hover:cursor-pointer"
+                    src={user.photoURL}
+                    alt="avatar"
+                  />
+                ) : (
+                  <RxAvatar className="text-3xl hover:cursor-pointer text-black" />
+                )}
               </button>
             </div>
           ) : (

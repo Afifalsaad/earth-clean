@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -16,27 +16,6 @@ import JoinCommunity from "../JoinCommunity/JoinCommunity";
 
 const Home = () => {
   const issues = useLoaderData();
-  const [issue, setIssue] = useState([]);
-  const { loading, setLoading } = use(AuthContext);
-
-  useEffect(() => {
-    if (issues) {
-      setIssue(issues);
-      setLoading(false);
-    }
-  }, [issues, setLoading]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex justify-center items-center">
-        <div className="loader">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen">
@@ -115,6 +94,11 @@ const Home = () => {
         <CategoryCards></CategoryCards>
       </div>
 
+      <div>
+        <h1 className="text-center text-4xl font-bold text-sky-900">
+          See recent issues
+        </h1>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-11/12  my-14 mx-auto">
         {issues.map((issue) => (
           <IssuesCard key={issue._id} issue={issue}></IssuesCard>
@@ -128,7 +112,6 @@ const Home = () => {
       <div className="my-14">
         <JoinCommunity></JoinCommunity>
       </div>
-
     </div>
   );
 };

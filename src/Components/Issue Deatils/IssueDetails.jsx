@@ -67,7 +67,7 @@ const IssueDetails = () => {
   };
 
   return (
-    <div className="min-h-screen dark:text-white">
+    <div className="min-h-screen">
       <div className="flex flex-col lg:flex-row justify-center gap-6 p-3 lg:p-12">
         <div>
           <img
