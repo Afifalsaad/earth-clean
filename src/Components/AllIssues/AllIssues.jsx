@@ -4,7 +4,6 @@ import IssueDetails from "../Issue Deatils/IssueDetails";
 
 const AllIssues = () => {
   const issues = useLoaderData();
-  console.log(issues);
   const [category, setCategory] = useState("All");
   const [status, setStatus] = useState("All");
 
