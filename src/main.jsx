@@ -20,6 +20,8 @@ import ErrorPage from "./Components/Pages/ErrorPage.jsx";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import PaymentSuccess from "./Components/Payment/PaymentSuccess.jsx";
 import PaymentCancelled from "./Components/Payment/PaymentCancelled.jsx";
+import AdminRoute from "./assets/Routes/AdminRoute.jsx";
+import Dashboard from "./Components/Dashboard/Dashboard.jsx";
 
 const queryClient = new QueryClient();
 
@@ -71,6 +73,17 @@ const router = createBrowserRouter([
       {
         path: "payment-cancelled",
         Component: PaymentCancelled,
+      },
+      {
+        path: "dashboard",
+        element: (
+          <AdminRoute>
+            <Dashboard></Dashboard>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "dashboard",
       },
       {
         path: "/myIssues",

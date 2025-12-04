@@ -4,10 +4,17 @@ import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { RxAvatar } from "react-icons/rx";
 import Swal from "sweetalert2";
+import useRole from "../../Hook/useRole";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [logout, setLogout] = useState(true);
+  const { role, isLoading } = useRole();
+  console.log(role);
+
+  if (isLoading) {
+    return null;
+  }
 
   const handleLogout = () => {
     setLogout(!logout);
@@ -99,6 +106,13 @@ const Navbar = () => {
               </NavLink>
               <NavLink className="font-semibold mr-4" to="/myContribution">
                 My Contribution
+              </NavLink>
+            </>
+          )}
+          {role === "admin" && (
+            <>
+              <NavLink className="font-semibold mr-4" to="/dashboard">
+                Dashboard
               </NavLink>
             </>
           )}

@@ -3,23 +3,24 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { Link, Navigate, useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import { useForm } from "react-hook-form";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 const Register = () => {
-  const { signIn, googleLogIn, setNameAndPhoto } =
-    use(AuthContext);
+  const { createUser, googleLogIn, setNameAndPhoto } = use(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { register, handleSubmit, reset } = useForm();
+  const axiosSecure = useAxiosSecure();
 
-  const handleRegister = (e) => {
-    e.preventDefault();
+  const handleRegister = (data) => {
+    const email = data.email;
+    const password = data.password;
+    const photoURL = data.photoURL;
+    const name = data.name;
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
-    const name = e.target.name.value;
-    const email = e.target.email.value;
-    const photoURL = e.target.photoURL.value;
-    const password = e.target.password.value;
-    const passWordPattern = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-
-    if (!passWordPattern.test(password)) {
+    if (!passwordPattern.test(password)) {
       if (!/[a-z]/.test(password)) {
         alert("Password must contain at least 1 lowercase");
         return;
@@ -34,20 +35,32 @@ const Register = () => {
       }
     }
 
-    signIn(email, password)
+    createUser(email, password)
       .then(() => {
         {
           Swal.fire({
             title: "Register Successful",
             icon: "success",
           });
-          navigate('/')
+          navigate("/");
         }
         setNameAndPhoto(name, photoURL)
-          .then(() => {})
+          .then(() => {
+            const userInfo = {
+              name: name,
+              email: email,
+              photoURL: photoURL,
+            };
+
+            axiosSecure.post("/users", userInfo).then((res) => {
+              if (res.data.insertedId) {
+                console.log("User Created Successfully");
+              }
+            });
+          })
           .catch(() => {
             Swal.fire({
-              title: "Login Error",
+              title: "Update Error",
               icon: "error",
             });
           });
@@ -58,7 +71,7 @@ const Register = () => {
           icon: "error",
         })
       );
-    e.target.reset();
+    reset();
   };
 
   const handleShowPassword = (e) => {
@@ -68,12 +81,23 @@ const Register = () => {
 
   const handleGoogleLogin = () => {
     googleLogIn()
-      .then(() => {
+      .then((res) => {
+        const userInfo = {
+          name: res.user.displayName,
+          email: res.user.email,
+          photoURL: res.user.photoURL,
+        };
+
+        axiosSecure.post("/users", userInfo).then((res) => {
+          if (res.data.insertedId) {
+            console.log("User Created Successfully");
+          }
+        });
         Swal.fire({
           title: "Register Successful",
           icon: "success",
         });
-        <Navigate to='/'></Navigate>
+        navigate("/");
       })
       .catch(() =>
         Swal.fire({
@@ -91,25 +115,25 @@ const Register = () => {
           </div>
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
             <div className="card-body">
-              <form onSubmit={handleRegister}>
+              <form onSubmit={handleSubmit(handleRegister)}>
                 <fieldset className="fieldset">
                   <label className="label">Name</label>
                   <input
-                    name="name"
+                    {...register("name")}
                     type="text"
                     className="input"
                     placeholder="Name"
                   />
                   <label className="label">Email</label>
                   <input
-                    name="email"
+                    {...register("email")}
                     type="email"
                     className="input"
                     placeholder="Email"
                   />
                   <label className="label">PhotoURL</label>
                   <input
-                    name="photoURL"
+                    {...register("photoURL")}
                     type="text"
                     className="input"
                     placeholder="PhotoURL"
@@ -118,11 +142,10 @@ const Register = () => {
                   <div>
                     <div className="relative">
                       <input
-                        name="password"
+                        {...register("password")}
                         type={showPassword ? "text" : "password"}
                         className="input"
                         placeholder="Password"
-                        onFocus="border"
                       />
                       <button
                         onClick={handleShowPassword}
