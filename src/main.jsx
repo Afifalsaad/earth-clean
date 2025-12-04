@@ -18,6 +18,8 @@ import IssueDetails from "./Components/Issue Deatils/IssueDetails.jsx";
 import { ThemeProvider } from "next-themes";
 import ErrorPage from "./Components/Pages/ErrorPage.jsx";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import PaymentSuccess from "./Components/Payment/PaymentSuccess.jsx";
+import PaymentCancelled from "./Components/Payment/PaymentCancelled.jsx";
 
 const queryClient = new QueryClient();
 
@@ -61,6 +63,14 @@ const router = createBrowserRouter([
           fetch(
             `https://assignment-10-server-jet-nine.vercel.app/allIssues/${params.id}`
           ),
+      },
+      {
+        path: "payment-success",
+        Component: PaymentSuccess,
+      },
+      {
+        path: "payment-cancelled",
+        Component: PaymentCancelled,
       },
       {
         path: "/myIssues",

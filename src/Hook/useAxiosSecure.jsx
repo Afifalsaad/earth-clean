@@ -22,8 +22,6 @@ const useAxiosSecure = () => {
         return response;
       },
       (error) => {
-        console.log(error);
-
         const errorStatus = error.response.status;
         if (errorStatus === 401 || errorStatus === 403) {
           logOut().then(() => {

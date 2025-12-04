@@ -1,69 +1,50 @@
-import React, { use, useEffect, useRef, useState } from "react";
+import React, { use, useRef } from "react";
 import { useLoaderData } from "react-router";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
 
 const IssueDetails = () => {
   const issues = useLoaderData();
   const modalRef = useRef();
   const { user } = use(AuthContext);
-  const [contributed, setContributed] = useState([]);
   const { title, image, location, description, category, amount, _id } = issues;
+  const axiosSecure = useAxiosSecure();
+  const { register, handleSubmit } = useForm();
 
   const handleModal = () => {
     modalRef.current.showModal();
   };
 
-  useEffect(() => {
-    fetch(`https://assignment-10-server-jet-nine.vercel.app/allIssues/issue/${_id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setContributed(data);
-      });
-  }, [_id]);
+  const { data: contributed = [] } = useQuery({
+    queryKey: ["issue", _id],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/allIssues/issue/${_id}`);
+      return res.data;
+    },
+  });
 
-  const handleContribute = (e) => {
-    e.preventDefault();
-    const form = e.target;
-
-
-    const title = form.title.value;
-    const amount = form.amount.value;
-    const name = user.displayName;
-    const email = form.email.value;
-    const phoneNumber = form.phoneNumber.value;
-    const address = form.address.value;
-    const info = form.info.value;
+  const handleContribute = async (data) => {
     const contribution = {
-      product_id: _id,
-      title: title,
-      amount: amount,
-      name: name,
-      email: email,
+      issue_id: _id,
+      title: data.title,
+      issueTitle: title,
+      amount: data.amount,
+      name: user.displayName,
+      email: data.email,
       image: user.photoURL,
-      phoneNumber: phoneNumber,
-      address: address,
-      info: info,
-      date: new Date(),
+      phoneNumber: data.phoneNumber,
+      address: data.address,
+      info: data.info,
     };
 
-    fetch("https://assignment-10-server-jet-nine.vercel.app/contribution", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(contribution),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        modalRef.current.close();
-        Swal.fire({
-          title: "Thanks for your contribution!",
-          icon: "success",
-        });
-        setContributed((data) => [...data, contribution]);
-      });
-    form.reset();
+    const res = await axiosSecure.post(
+      "/create-checkout-session",
+      contribution
+    );
+    window.location.href = res.data.url;
   };
 
   return (
@@ -82,7 +63,7 @@ const IssueDetails = () => {
           <p>{category}</p>
 
           <p>Amount: {amount} tk</p>
-          <p  className="mb-7">Date: {new Date().toLocaleDateString()}</p>
+          <p className="mb-7">Date: {new Date().toLocaleDateString()}</p>
           <h2>{description}</h2>
           <button
             onClick={handleModal}
@@ -96,26 +77,26 @@ const IssueDetails = () => {
                 Thanks for your contribution
               </h3>
 
-              <form onSubmit={handleContribute}>
+              <form onSubmit={handleSubmit(handleContribute)}>
                 <fieldset className="fieldset grid grid-cols-2 gap-6">
                   <div>
                     <label className="label">Issue Title</label>
                     <input
-                      name="title"
+                      {...register("title")}
                       type="text"
                       className="input border border-black/15 mb-2"
                       placeholder="Issue title"
                     />
                     <label className="label mb-1">Amount</label>
                     <input
-                      name="amount"
+                      {...register("amount")}
                       type="text"
                       className="input border border-black/15 mb-2"
                       placeholder="Amount"
                     />
                     <label className="label mb-1">Name</label>
                     <input
-                      name="name"
+                      {...register("name")}
                       type="name"
                       className="input border border-black/15 mb-2"
                       placeholder="Name"
@@ -123,7 +104,7 @@ const IssueDetails = () => {
                     <label className="label mb-1">Email</label>
                     <input
                       defaultValue={user.email}
-                      name="email"
+                      {...register("email")}
                       type="email"
                       className="input border border-black/15 mb-2"
                       placeholder="Email"
@@ -133,14 +114,14 @@ const IssueDetails = () => {
                   <div>
                     <label className="label">Phone Number</label>
                     <input
-                      name="phoneNumber"
+                      {...register("phoneNumber")}
                       type="text"
                       className="input border border-black/15 mb-2"
                       placeholder="Phone number"
                     />
                     <label className="label mb-1">Address</label>
                     <input
-                      name="address"
+                      {...register("address")}
                       type="text"
                       className="input border border-black/15 mb-2"
                       placeholder="address"
@@ -148,7 +129,7 @@ const IssueDetails = () => {
 
                     <label className="label mb-1">Additional info</label>
                     <input
-                      name="info"
+                      {...register("info")}
                       type="text"
                       className="input border border-black/15 mb-2"
                       placeholder="Additional info"
@@ -157,6 +138,7 @@ const IssueDetails = () => {
                 </fieldset>
 
                 <button
+                  type="submit"
                   onSubmit={handleContribute}
                   className="btn bg-sky-700 mt-6 py-2 px-8 hover:cursor-pointer text-white">
                   Submit
@@ -173,7 +155,7 @@ const IssueDetails = () => {
       </div>
 
       <h3 className="p-4 text-shadow-sky-90000 text-2xl font-bold max-w-6xl mx-auto">
-        Bids for this Product:{" "}
+        Pays for this Product:{" "}
         <span className="text-sky-600">{contributed.length}</span>
       </h3>
       {/* Contributor */}
@@ -190,7 +172,7 @@ const IssueDetails = () => {
           <tbody>
             {/* row 1 */}
             {contributed.map((c, index) => (
-              <tr>
+              <tr key={index}>
                 <th>{index + 1}</th>
                 <td>
                   <div className="flex items-center gap-3">
@@ -211,7 +193,6 @@ const IssueDetails = () => {
                 <td>{c.amount}</td>
               </tr>
             ))}
-            {/* row 2 */}
           </tbody>
         </table>
       </div>
