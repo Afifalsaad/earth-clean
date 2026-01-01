@@ -15,13 +15,12 @@ import MyContribution from "./Components/MyContribution/MyContribution.jsx";
 import AllIssues from "./Components/AllIssues/AllIssues.jsx";
 import PrivateRoute from "./Provider/PrivateRoute.jsx";
 import IssueDetails from "./Components/Issue Deatils/IssueDetails.jsx";
-import { ThemeProvider } from "next-themes";
 import ErrorPage from "./Components/Pages/ErrorPage.jsx";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import PaymentSuccess from "./Components/Payment/PaymentSuccess.jsx";
 import PaymentCancelled from "./Components/Payment/PaymentCancelled.jsx";
-import AdminRoute from "./assets/Routes/AdminRoute.jsx";
 import Dashboard from "./Components/Dashboard/Dashboard.jsx";
+import AdminRoute from "./Components/Routes/AdminRoute.jsx";
 
 const queryClient = new QueryClient();
 

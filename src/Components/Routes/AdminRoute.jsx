@@ -1,6 +1,6 @@
 import React from "react";
 import useRole from "../../Hook/useRole";
-import ForbiddenPage from "../../Components/Pages/ForbiddenPage";
+import ForbiddenPage from "../Pages/ForbiddenPage";
 
 const AdminRoute = ({ children }) => {
   const { role, isLoading } = useRole();

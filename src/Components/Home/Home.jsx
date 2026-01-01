@@ -37,8 +37,8 @@ const Home = () => {
               alt=""
             />
 
-            <div className="absolute top-0 bg-black/50 w-6/12 h-full rounded-xl rounded-r-none flex flex-col justify-center items-center text-white"></div>
-            <div className="absolute top-3/12 md:top-4/12 lg:top-6/12 w-full text-center text-white">
+            <div className="absolute top-0 bg-black/50 w-full h-full rounded-xl rounded-r-none flex flex-col justify-center items-center text-white"></div>
+            <div className="absolute top-3/12 md:top-4/12 lg:top-5/12 w-full text-center text-white">
               <h1 className="text-[10px] md:text-xl lg:text-3xl font-semibold mb-2">
                 More than 430 million tons of plastic are produced each year
               </h1>
@@ -56,8 +56,8 @@ const Home = () => {
               alt=""
             />
 
-            <div className="absolute top-0 bg-black/50 w-6/12 h-full rounded-xl rounded-r-none flex flex-col justify-center items-center text-white"></div>
-            <div className="absolute top-3/12 md:top-4/12 lg:top-6/12 w-full text-center text-white">
+            <div className="absolute top-0 bg-black/50 w-full h-full rounded-xl rounded-r-none flex flex-col justify-center items-center text-white"></div>
+            <div className="absolute top-3/12 md:top-4/12 lg:top-5/12 w-full text-center text-white">
               <h1 className="text-[10px] md:text-xl lg:text-3xl font-semibold mb-2">
                 Join Hands for a Cleaner, Greener Community
               </h1>
@@ -75,8 +75,8 @@ const Home = () => {
               alt=""
             />
 
-            <div className="absolute top-0 bg-black/50 w-6/12 h-full rounded-xl rounded-r-none flex flex-col justify-center items-center text-white"></div>
-            <div className="absolute top-3/12 md:top-4/12 lg:top-6/12 w-full text-center text-white">
+            <div className="absolute top-0 bg-black/50 w-full h-full rounded-xl rounded-r-none flex flex-col justify-center items-center text-white"></div>
+            <div className="absolute top-3/12 md:top-4/12 lg:top-5/12 w-full text-center text-white">
               <h1 className="text-[10px] md:text-xl lg:text-3xl font-semibold mb-2">
                 Take Action for a Sustainable Future
               </h1>
@@ -95,7 +95,7 @@ const Home = () => {
       </div>
 
       <div>
-        <h1 className="text-center text-4xl font-bold text-sky-900">
+        <h1 className="text-center text-4xl font-bold text-primary">
           See recent issues
         </h1>
       </div>

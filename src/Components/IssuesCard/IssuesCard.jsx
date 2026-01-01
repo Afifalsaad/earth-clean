@@ -6,7 +6,7 @@ const IssuesCard = ({ issue }) => {
 
   return (
     <div>
-      <div className="bg-white rounded-xl">
+      <div className="text-primary rounded-xl">
       <div className="card card-lg ">
         <div className="card-body min-h-[300px]">
           <h2 className="card-title min-h-16">{issue.title}</h2>

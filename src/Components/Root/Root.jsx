@@ -1,9 +1,9 @@
 import React, { use, useEffect } from "react";
-import Navbar from "../Navbar/Navbar";
 import { Outlet, useLocation } from "react-router";
 import Footer from "../Footer/Footer";
 import { AuthContext } from "../../Provider/AuthProvider";
 import "./root.css";
+import Navbar from "../Navbar/Navbar";
 
 const Root = () => {
   const location = useLocation();
@@ -44,7 +44,7 @@ const Root = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto bg-[#e0fde5]">
+    <div className="max-w-7xl mx-auto">
       <Navbar></Navbar>
       <Outlet></Outlet>
       <Footer></Footer>

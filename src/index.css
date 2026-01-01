@@ -1,10 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
 @plugin "daisyui" {
   themes: light --default;
 }
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: true;
+  --color-primary: oklch(0.9393 0.0765 160.45);
+  --color-secondary: oklch(0.3549 0.0415 160.45);
+}
 
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  /* Brand */
+  --color-primary: oklch(0.6254 0.0327 160.45);
+  --color-secondary: oklch(0.9748 0 151.21);
+  --color-accent: oklch(72% 0.2 55);
+
+  /* Base */
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(97% 0.01 95);
+  --color-base-300: oklch(92% 0.015 95);
+
+  /* Neutral */
+  --color-neutral: oklch(35% 0.01 260);
+  --color-neutral-content: oklch(96% 0 0);
+
+  /* Feedback */
+  --color-success: oklch(70% 0.17 145);
+  --color-error: oklch(62% 0.24 28);
+}
+@custom-variant dark (&:where([data-theme=night], [data-theme=night] *));
 * {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
