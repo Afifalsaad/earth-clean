@@ -16,6 +16,7 @@ const AllIssues = () => {
   });
 
   const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("");
   const [category, setCategory] = useState("All");
   const [status, setStatus] = useState("All");
 
@@ -23,13 +24,20 @@ const AllIssues = () => {
     console.log(issue.title);
     const matchedCategory = category === "All" || issue.category === category;
     const matchedStatus = status === "All" || issue.status === status;
-    search === "" || issue?.title.toLowerCase() == search.toLowerCase();
     const searchedIssue =
       search === "" ||
       issue?.title.toLowerCase().includes(search.toLowerCase());
 
     return matchedCategory && matchedStatus && searchedIssue;
   });
+
+  let sortedIssue = [...filteredIssue];
+  if (sort === "Higher - Lower") {
+    sortedIssue.sort((a, b) => Number(b.amount) - Number(a.amount));
+  }
+  if (sort === "Lower - Higher") {
+    sortedIssue.sort((a, b) => Number(a.amount) - Number(b.amount));
+  }
 
   return (
     <div className="bg-secondary">
@@ -60,6 +68,7 @@ const AllIssues = () => {
           </fieldset>
         </div>
         <div className="flex flex-row gap-5">
+          {/* Category */}
           <div className="w-50">
             <h1>Category: </h1>
             <fieldset className="fieldset w-full">
@@ -89,6 +98,19 @@ const AllIssues = () => {
               </select>
             </fieldset>
           </div>
+          {/* Sort */}
+          <div className="w-50">
+            <h1>Sort By Amount: </h1>
+            <fieldset className="fieldset">
+              <select
+                defaultValue={sort}
+                onChange={(e) => setSort(e.target.value)}
+                className="select">
+                <option>Higher - Lower</option>
+                <option>Lower - Higher</option>
+              </select>
+            </fieldset>
+          </div>
         </div>
       </div>
 
@@ -100,7 +122,7 @@ const AllIssues = () => {
         </div>
       ) : (
         <div className="max-w-6xl pb-14 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-3">
-          {filteredIssue.map((issue) => (
+          {sortedIssue.map((issue) => (
             <div className="card bg-secondary border border-accent/5 shadow-sm">
               <img
                 className="w-[400px] h-[300px] object-cover px-4 pt-4"
@@ -115,7 +137,10 @@ const AllIssues = () => {
                   </div>
                   <div className="">
                     <h2>{issue.location}</h2>
-                    <h2>{issue.amount}</h2>
+                    <h2>
+                      <span className="text-accent font-semibold">Amount</span>{" "}
+                      :{issue.amount}
+                    </h2>
                   </div>
                   <div></div>
                 </div>
