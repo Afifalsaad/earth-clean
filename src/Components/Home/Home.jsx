@@ -10,7 +10,6 @@ import actions from "../../assets/sustainability-actions.jpg";
 import { useLoaderData } from "react-router";
 import IssuesCard from "../IssuesCard/IssuesCard";
 import CategoryCards from "../CategoryCards/CategoryCards";
-import { AuthContext } from "../../Provider/AuthProvider";
 import CommunityState from "../CommunityStats.jsx/CommunityState";
 import JoinCommunity from "../JoinCommunity/JoinCommunity";
 
@@ -18,99 +17,112 @@ const Home = () => {
   const issues = useLoaderData();
 
   return (
-    <div className="min-h-screen">
-      <div className="w-10/12 mx-auto my-8 lg:my-14">
-        <Swiper
-          spaceBetween={50}
-          centeredSlides={true}
-          autoplay={{
-            delay: 3500,
-            disableOnInteraction: false,
-          }}
-          navigation={true}
-          modules={[Autoplay]}
-          className="mySwiper">
-          <SwiperSlide>
-            <img
-              className="w-full h-32 md:h-56 lg:h-96 object-cover rounded-xl"
-              src={garbageIssue}
-              alt=""
-            />
+    <div className="bg-secondary w-full">
+      <div className="min-h-screen max-w-[1100px] lg:max-w-[1200px] mx-auto">
+        <div className="lg:w-full p-1 mx-auto">
+          <Swiper
+            spaceBetween={20}
+            centeredSlides={true}
+            autoplay={{
+              delay: 3500,
+              disableOnInteraction: false,
+            }}
+            navigation={true}
+            modules={[Autoplay]}
+            className="mySwiper">
+            <SwiperSlide>
+              <div className="relative w-full h-32 md:h-56 lg:h-96 rounded-xl overflow-hidden">
+                <img
+                  src={garbageIssue}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
 
-            <div className="absolute top-0 bg-black/50 w-full h-full rounded-xl rounded-r-none flex flex-col justify-center items-center text-white"></div>
-            <div className="absolute top-3/12 md:top-4/12 lg:top-5/12 w-full text-center text-white">
-              <h1 className="text-[10px] md:text-xl lg:text-3xl font-semibold mb-2">
-                More than 430 million tons of plastic are produced each year
-              </h1>
-              <p className="text-[10px] md:text-[10px] lg:text-sm md:w-8/12 text-center mx-auto">
-                If plastic production stays on its current trajectory, by 2030,
-                greenhouse gas emissions from plastic could reach 1.34 billion
-                tons per year.
-              </p>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              className="relative w-full h-32 md:h-56 lg:h-96 object-cover rounded-xl"
-              src={cleaning}
-              alt=""
-            />
+                <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-white"></div>
 
-            <div className="absolute top-0 bg-black/50 w-full h-full rounded-xl rounded-r-none flex flex-col justify-center items-center text-white"></div>
-            <div className="absolute top-3/12 md:top-4/12 lg:top-5/12 w-full text-center text-white">
-              <h1 className="text-[10px] md:text-xl lg:text-3xl font-semibold mb-2">
-                Join Hands for a Cleaner, Greener Community
-              </h1>
-              <p className="text-[10px] md:text-[10px] lg:text-sm md:w-8/12 text-center mx-auto">
-                Together we can make a difference! Be part of our community
-                cleaning movement to create a healthier, more sustainable
-                environment for everyone.
-              </p>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              className="relative w-full h-32 md:h-56 lg:h-96 object-cover rounded-xl"
-              src={actions}
-              alt=""
-            />
+                <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-4">
+                  <h1 className="text-[10px] md:text-xl lg:text-3xl font-semibold mb-2">
+                    More than 430 million tons of plastic are produced each year
+                  </h1>
+                  <p className="text-[10px] lg:text-sm md:w-8/12 mx-auto">
+                    If plastic production stays on its current trajectory, by
+                    2030, greenhouse gas emissions from plastic could reach 1.34
+                    billion tons per year.
+                  </p>
+                </div>
+              </div>
+            </SwiperSlide>
 
-            <div className="absolute top-0 bg-black/50 w-full h-full rounded-xl rounded-r-none flex flex-col justify-center items-center text-white"></div>
-            <div className="absolute top-3/12 md:top-4/12 lg:top-5/12 w-full text-center text-white">
-              <h1 className="text-[10px] md:text-xl lg:text-3xl font-semibold mb-2">
-                Take Action for a Sustainable Future
-              </h1>
-              <p className="text-[10px] md:text-[10px] lg:text-sm md:w-8/12 text-center mx-auto">
-                Every small step counts. Join our sustainability mission to
-                protect the planet, conserve resources, and inspire positive
-                change in your community.
-              </p>
-            </div>
-          </SwiperSlide>
-        </Swiper>
-      </div>
+            <SwiperSlide>
+              <div className="relative w-full h-32 md:h-56 lg:h-96 rounded-xl overflow-hidden">
+                <img
+                  src={cleaning}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
 
-      <div>
-        <CategoryCards></CategoryCards>
-      </div>
+                <div className="absolute inset-0 bg-black/50"></div>
 
-      <div>
-        <h1 className="text-center text-4xl font-bold text-primary">
-          See recent issues
-        </h1>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-11/12  my-14 mx-auto">
-        {issues.map((issue) => (
-          <IssuesCard key={issue._id} issue={issue}></IssuesCard>
-        ))}
-      </div>
+                <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-4">
+                  <h1 className="text-[10px] md:text-xl lg:text-3xl font-semibold mb-2">
+                    Join Hands for a Cleaner, Greener Community
+                  </h1>
+                  <p className="text-[10px] lg:text-sm md:w-8/12 mx-auto">
+                    Together we can make a difference! Be part of our community
+                    cleaning movement to create a healthier, more sustainable
+                    environment for everyone.
+                  </p>
+                </div>
+              </div>
+            </SwiperSlide>
 
-      <div>
-        <CommunityState></CommunityState>
-      </div>
+            <SwiperSlide>
+              <div className="relative w-full h-32 md:h-56 lg:h-96 rounded-xl overflow-hidden">
+                <img
+                  src={actions}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
 
-      <div className="my-14">
-        <JoinCommunity></JoinCommunity>
+                <div className="absolute inset-0 bg-black/50"></div>
+
+                <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-4">
+                  <h1 className="text-[10px] md:text-xl lg:text-3xl font-semibold mb-2">
+                    Join Hands for a Cleaner, Greener Community
+                  </h1>
+                  <p className="text-[10px] lg:text-sm md:w-8/12 mx-auto">
+                    Together we can make a difference! Be part of our community
+                    cleaning movement to create a healthier, more sustainable
+                    environment for everyone.
+                  </p>
+                </div>
+              </div>
+            </SwiperSlide>
+          </Swiper>
+        </div>
+
+        <div>
+          <CategoryCards></CategoryCards>
+        </div>
+
+        <div>
+          <h1 className="text-center mt-4 text-xl font-bold text-accent">
+            See recent issues
+          </h1>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-11/12 my-4 mx-auto">
+          {issues.map((issue) => (
+            <IssuesCard key={issue._id} issue={issue}></IssuesCard>
+          ))}
+        </div>
+
+        <div>
+          <CommunityState></CommunityState>
+        </div>
+
+        <div className="my-14">
+          <JoinCommunity></JoinCommunity>
+        </div>
       </div>
     </div>
   );

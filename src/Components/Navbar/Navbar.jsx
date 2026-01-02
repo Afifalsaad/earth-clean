@@ -32,7 +32,7 @@ const Navbar = () => {
 
   return (
     <div className="bg-secondary w-full sticky top-0 z-50">
-      <div className="flex max-w-11/12 mx-auto justify-between py-3 items-center text-primary relative">
+      <div className="flex max-w-[1200px] mx-auto justify-between py-3 items-center text-accent relative">
         <div className="flex flex-row relative z-10 ml-1">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -88,10 +88,10 @@ const Navbar = () => {
 
         <div className="flex items-center mr-1">
           <div className="hidden lg:block">
-            <NavLink className="font-semibold mr-4" to="/">
+            <NavLink className="text-sm mr-4" to="/">
               Home
             </NavLink>
-            <NavLink className="font-semibold mr-4" to="/allIssues">
+            <NavLink className="text-sm mr-4" to="/allIssues">
               All Issues
             </NavLink>
 
@@ -99,14 +99,14 @@ const Navbar = () => {
               <>
                 {" "}
                 <NavLink
-                  className="font-semibold mr-4 text-primary"
+                  className="text-sm mr-4"
                   to="/addIssues">
                   Add Issue
                 </NavLink>
-                <NavLink className="font-semibold mr-4" to="/myIssues">
+                <NavLink className="text-sm mr-4" to="/myIssues">
                   My Issues
                 </NavLink>
-                <NavLink className="font-semibold mr-4" to="/myContribution">
+                <NavLink className="text-sm mr-4" to="/myContribution">
                   My Contribution
                 </NavLink>
               </>
@@ -126,7 +126,7 @@ const Navbar = () => {
                 {showLogout && (
                   <button
                     onClick={handleSignOut}
-                    className="bg-gray-100 py-1 px-4 rounded-xl hover:cursor-pointer">
+                    className="btn btn-primary text-neutral-content py-1 px-4 rounded-xl hover:cursor-pointer">
                     Logout
                   </button>
                 )}
