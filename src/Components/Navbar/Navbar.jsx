@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import icon from "../../assets/icons8-earth-48.png";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../Provider/AuthProvider";
@@ -9,13 +9,7 @@ import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  const [showLogout, setShowLogout] = useState(false);
   const { role } = useRole();
-
-  const handleLogout = (e) => {
-    e.stopPropagation();
-    setShowLogout((prev) => !prev);
-  };
 
   const handleSignOut = () => {
     logOut()
@@ -98,9 +92,7 @@ const Navbar = () => {
             {user && (
               <>
                 {" "}
-                <NavLink
-                  className="text-sm mr-4"
-                  to="/addIssues">
+                <NavLink className="text-sm mr-4" to="/addIssues">
                   Add Issue
                 </NavLink>
                 <NavLink className="text-sm mr-4" to="/myIssues">
@@ -122,37 +114,56 @@ const Navbar = () => {
 
           <div>
             {user ? (
-              <div className="relative flex items-center gap-4 group mr-3">
-                {showLogout && (
-                  <button
-                    onClick={handleSignOut}
-                    className="btn btn-primary text-neutral-content py-1 px-4 rounded-xl hover:cursor-pointer">
-                    Logout
-                  </button>
-                )}
-
-                <button onClick={handleLogout}>
+              <div className="dropdown dropdown-end mr-3">
+                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                   {user.photoURL ? (
                     <img
-                      className="w-9 h-9 object-cover rounded-full hover:cursor-pointer"
+                      className="w-9 h-9 rounded-full object-cover"
                       src={user.photoURL}
                       alt="avatar"
                     />
                   ) : (
-                    <RxAvatar className="text-3xl hover:cursor-pointer text-black" />
+                    <RxAvatar className="text-3xl" />
                   )}
-                </button>
+                </label>
+
+                <ul
+                  tabIndex={0}
+                  className="menu menu-sm dropdown-content mt-5 p-2 shadow bg-secondary rounded-box w-44">
+                  <li>
+                    <span className="text-sm text-accent cursor-default">
+                      {user.displayName || "User"}
+                    </span>
+                  </li>
+                  <li>
+                    <NavLink to="/profile">Profile</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/settings">Settings</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/allIssues">
+                      Blogs
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/allIssues">
+                      Contact Us
+                    </NavLink>
+                  </li>
+                  <li>
+                    <button onClick={handleSignOut} className="text-error">
+                      Logout
+                    </button>
+                  </li>
+                </ul>
               </div>
             ) : (
               <>
-                <Link
-                  to="/login"
-                  className="bg-gray-100 dark:text-white-200 py-2 mr-2 px-4 rounded-xl hover:cursor-pointer">
+                <Link to="/login" className="btn btn-primary mx-2">
                   Login
                 </Link>
-                <Link
-                  to="/register"
-                  className="bg-gray-100 dark:text-white-200 py-2 mr-2 px-4 rounded-xl hover:cursor-pointer">
+                <Link to="/register" className="btn btn-primary">
                   Register
                 </Link>
               </>

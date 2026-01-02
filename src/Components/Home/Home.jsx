@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -7,14 +7,30 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import garbageIssue from "../../assets/garbage-issue.jpg";
 import cleaning from "../../assets/community-cleaning.jpg";
 import actions from "../../assets/sustainability-actions.jpg";
-import { useLoaderData } from "react-router";
 import IssuesCard from "../IssuesCard/IssuesCard";
 import CategoryCards from "../CategoryCards/CategoryCards";
 import CommunityState from "../CommunityStats.jsx/CommunityState";
 import JoinCommunity from "../JoinCommunity/JoinCommunity";
+import Skeleton from "../skeleton/Skeleton";
 
 const Home = () => {
-  const issues = useLoaderData();
+  const [issues, setIssues] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      fetch("https://assignment-10-server-jet-nine.vercel.app/issues")
+        .then((res) => res.json())
+        .then((data) => {
+          setIssues(data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error(err);
+          setLoading(false);
+        });
+    }, 2000);
+  }, []);
 
   return (
     <div className="bg-secondary w-full">
@@ -110,10 +126,12 @@ const Home = () => {
             See recent issues
           </h1>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-11/12 my-4 mx-auto">
-          {issues.map((issue) => (
-            <IssuesCard key={issue._id} issue={issue}></IssuesCard>
-          ))}
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-4 lg:grid-cols-4">
+          {loading
+            ? Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} />)
+            : issues.map((issue) => (
+                <IssuesCard key={issue._id} issue={issue} />
+              ))}
         </div>
 
         <div>
