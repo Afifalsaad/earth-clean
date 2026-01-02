@@ -28,7 +28,7 @@ const IssueDetails = () => {
     date = new Date().toLocaleDateString(),
   } = issue;
 
-  const { data: contributed = [] } = useQuery({
+  const { data: contributed = [], refetch } = useQuery({
     queryKey: ["issue", _id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/allIssues/issue/${_id}`);
@@ -52,7 +52,8 @@ const IssueDetails = () => {
 
     const res = await axiosSecure.post(
       "/create-checkout-session",
-      contribution
+      contribution,
+      refetch
     );
     window.location.href = res.data.url;
   };

@@ -49,8 +49,8 @@ const MyContribution = () => {
   }, [user?.email]);
 
   return (
-    <div>
-      <h1 className="text-center bg-secondary text-2xl font-bold py-7">
+    <div className="min-h-screen bg-secondary">
+      <h1 className="text-center text-2xl font-bold py-7">
         My Contribution :{" "}
         <span className="text-[#0084d1] text-2xl">{contributions.length}</span>
       </h1>
@@ -90,7 +90,7 @@ const MyContribution = () => {
 
             <div className="hidden md:block bg-secondary text-accent">
               <table className="table">
-                <thead>
+                <thead className="text-accent">
                   <tr>
                     <th></th>
                     <th>Title</th>

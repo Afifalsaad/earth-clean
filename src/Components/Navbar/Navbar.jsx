@@ -105,7 +105,7 @@ const Navbar = () => {
             )}
             {role === "admin" && (
               <>
-                <NavLink className="font-semibold mr-4" to="/dashboard">
+                <NavLink className="text-sm mr-4" to="/dashboard">
                   Dashboard
                 </NavLink>
               </>
