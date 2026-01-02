@@ -50,7 +50,7 @@ const MyContribution = () => {
 
   return (
     <div>
-      <h1 className="text-center text-2xl font-bold my-7">
+      <h1 className="text-center bg-secondary text-2xl font-bold py-7">
         My Contribution :{" "}
         <span className="text-[#0084d1] text-2xl">{contributions.length}</span>
       </h1>
@@ -66,17 +66,15 @@ const MyContribution = () => {
           </div>
         ) : contributions.length === 0 ? (
           <div className="flex justify-center items-center min-h-screen">
-            <p className="font-semibold text-xl">
-              No Data Found
-            </p>
+            <p className="font-semibold text-xl">No Data Found</p>
           </div>
         ) : (
           <div>
-            <div className="md:hidden space-y-4 p-2">
+            <div className="md:hidden min-h-screen bg-secondary text-accent space-y-4 p-2">
               {contributions.map((d, index) => (
                 <div
                   key={d._id}
-                  className="border p-4 rounded shadow bg-sky-100">
+                  className="border p-4 rounded shadow">
                   <p className="font-bold">
                     {index + 1}. {d.title}
                   </p>
@@ -85,13 +83,13 @@ const MyContribution = () => {
                     Category: {d.category ? d.category : "No category Added"}
                   </p>
                   <p>Paid Amount: {d.amount}</p>
-                  <p>Category: {new Date(d.date).toLocaleDateString()}</p>
+                  <p>Date: {new Date(d.createdAt).toLocaleDateString()}</p>
                 </div>
               ))}
             </div>
 
-            <div className="hidden md:block">
-              <table className="table bg-white">
+            <div className="hidden md:block bg-secondary text-accent">
+              <table className="table">
                 <thead>
                   <tr>
                     <th></th>
@@ -112,7 +110,7 @@ const MyContribution = () => {
                         {data.amount}
                         <br />
                       </td>
-                      <td>{new Date(data.date).toLocaleDateString()}</td>
+                      <td>{new Date(data.createdAt).toLocaleDateString()}</td>
 
                       <td>
                         <button

@@ -2,7 +2,7 @@ import React from "react";
 
 const Skeleton = () => {
   return (
-    <div className="h-full animate-pulse">
+    <div className="h-full animate-pulse mt-2">
       <div className="card bg-base-200 p-2 border border-accent/10 rounded-xl h-full flex flex-col overflow-hidden">
         <div className="h-40 w-full bg-base-300 rounded-md mb-2"></div>
         <div className="p-4 flex flex-col justify-between h-80">

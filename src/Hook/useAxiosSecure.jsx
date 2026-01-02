@@ -1,10 +1,10 @@
 import axios from "axios";
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { useNavigate } from "react-router";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: import.meta.env.VITE_base_URL,
 });
 
 const useAxiosSecure = () => {
@@ -22,7 +22,7 @@ const useAxiosSecure = () => {
         return response;
       },
       (error) => {
-        const errorStatus = error.response.status;
+        const errorStatus = error.response?.status;
         if (errorStatus === 401 || errorStatus === 403) {
           logOut().then(() => {
             navigate("/login");
