@@ -1,27 +1,37 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
-import { Link } from "react-router";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import Skeleton from "./Skeleton";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { Link } from "react-router";
 
 const AllIssues = () => {
   const axiosSecure = useAxiosSecure();
+  const limit = 3;
 
-  const { data: issues = [], isLoading } = useQuery({
-    queryKey: ["issues"],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/allIssues");
-      return res.data;
-    },
-  });
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ["issues"],
+      queryFn: async ({ pageParam = 1 }) => {
+        const res = await axiosSecure.get(
+          `/allIssues?limit=${limit}&skip=${pageParam}`
+        );
+        console.log(res.data);
+        return res.data;
+      },
+      getNextPageParam: (lastPage, pages) => {
+        return lastPage.hasMore ? pages.length * limit : undefined;
+      },
+    });
+
+  const allIssues = data?.pages.flatMap((page) => page.data) || [];
 
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
   const [category, setCategory] = useState("All");
   const [status, setStatus] = useState("All");
 
-  const filteredIssue = issues.filter((issue) => {
-    console.log(issue.title);
+  const filteredIssue = allIssues.filter((issue) => {
     const matchedCategory = category === "All" || issue.category === category;
     const matchedStatus = status === "All" || issue.status === status;
     const searchedIssue =
@@ -40,9 +50,9 @@ const AllIssues = () => {
   }
 
   return (
-    <div className="bg-secondary">
+    <div className="bg-secondary min-h-screen">
       {/* DropDown */}
-      <div className="flex justify-between mx-auto gap-6 max-w-6xl pt-14">
+      <div className="flex flex-col lg:flex-row px-1 justify-between mx-auto max-w-6xl pt-14">
         <div className="w-50">
           <h1 className="pb-1">Search Issue: </h1>
           <fieldset className="input w-full">
@@ -67,7 +77,7 @@ const AllIssues = () => {
             />
           </fieldset>
         </div>
-        <div className="flex flex-row gap-5">
+        <div className="flex flex-row gap-3 py-2">
           {/* Category */}
           <div className="w-50">
             <h1>Category: </h1>
@@ -85,7 +95,7 @@ const AllIssues = () => {
             </fieldset>
           </div>
           {/* Status */}
-          <div className="w-50">
+          <div className="w-40">
             <h1>Status: </h1>
             <fieldset className="fieldset">
               <select
@@ -99,13 +109,14 @@ const AllIssues = () => {
             </fieldset>
           </div>
           {/* Sort */}
-          <div className="w-50">
+          <div className="w-40">
             <h1>Sort By Amount: </h1>
             <fieldset className="fieldset">
               <select
-                defaultValue={sort}
+                defaultValue="All"
                 onChange={(e) => setSort(e.target.value)}
                 className="select">
+                <option>None</option>
                 <option>Higher - Lower</option>
                 <option>Lower - Higher</option>
               </select>
@@ -115,44 +126,55 @@ const AllIssues = () => {
       </div>
 
       {isLoading ? (
-        <div className="max-w-6xl pb-14 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-3">
+        <div className="max-w-6xl pb-14 mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 p-3">
           {Array.from({ length: 6 }).map((_, i) => (
-            <Skeleton key={i} />
+            <Skeleton key={i}></Skeleton>
           ))}
         </div>
       ) : (
-        <div className="max-w-6xl pb-14 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-3">
-          {sortedIssue.map((issue) => (
-            <div className="card bg-secondary border border-accent/5 shadow-sm">
-              <img
-                className="w-[400px] h-[300px] object-cover px-4 pt-4"
-                src={issue.image}
-              />
-
-              <div className="card-body">
-                <div className="h-[120px]">
-                  <div>
-                    <h2 className="card-title">{issue.title}</h2>
-                    <h3>{issue.category}</h3>
-                  </div>
-                  <div className="">
-                    <h2>{issue.location}</h2>
-                    <h2>
-                      <span className="text-accent font-semibold">Amount</span>{" "}
-                      :{issue.amount}
-                    </h2>
-                  </div>
-                  <div></div>
-                </div>
-                <Link
-                  to={`/issueDetails/${issue._id}`}
-                  className="btn btn-primary mt-4 text-center py-2 px-4 hover:cursor-pointer text-white w-full">
-                  See Details
-                </Link>
-              </div>
+        <InfiniteScroll
+          dataLength={sortedIssue.length}
+          next={fetchNextPage}
+          hasMore={!!hasNextPage}
+          loader={
+            <div className="flex justify-center py-6">
+              <span className="loading loading-spinner loading-md"></span>
             </div>
-          ))}
-        </div>
+          }
+          endMessage={
+            <p className="text-center text-gray-400 py-6">
+              No more data available
+            </p>
+          }>
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-3">
+            {sortedIssue.map((issue) => (
+              <div
+                key={issue._id}
+                className="card bg-secondary border border-accent/5 shadow-sm">
+                <img
+                  src={issue.image}
+                  className="w-[400px] h-[300px] object-cover px-4 pt-4"
+                />
+                <div className="card-body">
+                  <h2 className="card-title">{issue.title}</h2>
+                  <p>{issue.category}</p>
+                  <p>{issue.location}</p>
+                  <p>
+                    <span className="text-accent font-semibold">Amount:</span>{" "}
+                    {issue.amount}
+                  </p>
+                  <Link
+                    to={`/issueDetails/${issue._id}`}
+                    className="btn btn-primary w-full mt-4">
+                    See Details
+                  </Link>
+                </div>
+              </div>
+            ))}
+            {isFetchingNextPage &&
+              Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
+          </div>
+        </InfiniteScroll>
       )}
     </div>
   );
