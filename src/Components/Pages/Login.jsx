@@ -1,12 +1,14 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router";
-import AuthProvider, { AuthContext } from "../../Provider/AuthProvider";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import Swal from "sweetalert2";
+import UseAuth from "../Context/UseAuth";
 
 const Login = () => {
-  const { googleLogIn, logIn, setLoading, loading } = use(AuthContext);
+  const { googleLogIn, logIn, setLoading, loading } = UseAuth();
   const [showPassword, setShowPassword] = useState(false);
+  let [demoEmail, setDemoEmail] = useState("");
+  let [demoPassword, setDemoPassword] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -32,22 +34,10 @@ const Login = () => {
             title: "Login Error",
             icon: "error",
           });
-        };
+        }
         setLoading(false);
       });
   };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex justify-center items-center mx-auto">
-        <div class="loader">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-    );
-  }
 
   const handleGoogleLogin = () => {
     googleLogIn()
@@ -68,96 +58,99 @@ const Login = () => {
       });
   };
 
-  const handleShowPassword = (e) => {
-    e.preventDefault();
-    setShowPassword(!showPassword);
+  const handleDemoLogin = () => {
+    setDemoEmail("demo@email.com");
+    setDemoPassword("demoPass_11");
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center mx-auto">
+        <div class="loader">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
-      <div className="hero bg-base-200 min-h-screen">
-        <div className="flex-col lg:flex-row-reverse">
-          <div className="text-center lg:text-left mb-3">
-            <h1 className="text-5xl font-bold">Login now!</h1>
-          </div>
-          <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-            <div className="card-body">
-              <form onSubmit={handleLogin}>
-                <fieldset className="fieldset">
-                  {/* Email */}
-                  <label className="label">Email</label>
+      <div className="hero min-h-screen bg-secondary">
+        <div className="card w-full max-w-sm shadow-xl bg-base-100">
+          <div className="card-body">
+            <h2 className="text-3xl font-bold text-center mb-4">
+              Welcome Back
+            </h2>
+
+            <form onSubmit={handleLogin} className="space-y-3">
+              <div>
+                <label className="label">Email</label>
+                <input
+                  name="email"
+                  type="email"
+                  className="input input-bordered w-full"
+                  placeholder="Enter your email"
+                  defaultValue={demoEmail}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="label">Password</label>
+                <div className="relative">
                   <input
-                    name="email"
-                    type="email"
-                    className="input"
-                    placeholder="Email"
-                    //   value={userEmail}
-                    onChange={(e) => {
-                      // setUserEmail(e.target.value);
-                      e.target.reset();
-                    }}
-                    // required
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    className="input input-bordered w-full"
+                    placeholder="Enter your password"
+                    defaultValue={demoPassword}
+                    required
                   />
-
-                  {/* Password */}
-                  <label className="label">Password</label>
-                  <div className="relative">
-                    <input
-                      name="password"
-                      type={showPassword ? "text" : "password"}
-                      className="input"
-                      placeholder="Password"
-                      onFocus="border"
-                    />
-                    <button
-                      onClick={handleShowPassword}
-                      className="btn border-none btn-xs absolute top-2 right-2">
-                      {showPassword ? (
-                        <IoMdEyeOff className="text-xl" />
-                      ) : (
-                        <IoMdEye className="text-xl" />
-                      )}
-                    </button>
-                  </div>
-
                   <button
-                    type="submit"
-                    className="btn btn-neutral border-none bg-black text-white mt-4 mb-2">
-                    Login
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-3 text-gray-500 hover:cursor-pointer"
+                    aria-label="Toggle password visibility">
+                    {showPassword ? (
+                      <IoMdEyeOff size={20} />
+                    ) : (
+                      <IoMdEye size={20} />
+                    )}
                   </button>
-                  <Link to="/register" className="link link-hover underline">
-                    Register Now
-                  </Link>
-                </fieldset>
-              </form>
-              <button
-                onClick={() => handleGoogleLogin()}
-                className="btn bg-white text-black border-[#e5e5e5]">
-                <svg
-                  aria-label="Google logo"
-                  width="16"
-                  height="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512">
-                  <g>
-                    <path d="m0 0H512V512H0" fill="#fff"></path>
-                    <path
-                      fill="#34a853"
-                      d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path>
-                    <path
-                      fill="#4285f4"
-                      d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path>
-                    <path
-                      fill="#fbbc02"
-                      d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path>
-                    <path
-                      fill="#ea4335"
-                      d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path>
-                  </g>
-                </svg>
-                Login with Google
+                </div>
+              </div>
+
+              <button type="submit" className="btn btn-primary w-full">
+                Login
               </button>
-            </div>
+            </form>
+            <button
+              onClick={handleDemoLogin}
+              className="btn btn-primary-outline w-full">
+              Demo Login
+            </button>
+
+            <p className="text-center text-sm mt-2">
+              Don't have an account?{" "}
+              <Link to="/register" className="link link-primary">
+                Register
+              </Link>
+            </p>
+
+            <div className="divider">OR</div>
+
+            <button
+              onClick={handleGoogleLogin}
+              className="btn btn-outline w-full flex gap-2">
+              <img
+                src="https://www.svgrepo.com/show/475656/google-color.svg"
+                alt="Google"
+                className="w-5 h-5"
+              />
+              Login with Google
+            </button>
           </div>
         </div>
       </div>

@@ -10,7 +10,12 @@ const Register = () => {
   const { createUser, googleLogIn, setNameAndPhoto } = use(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
   const axiosSecure = useAxiosSecure();
 
   const handleRegister = (data) => {
@@ -126,6 +131,7 @@ const Register = () => {
                   />
                   <label className="label">Email</label>
                   <input
+                    required
                     {...register("email")}
                     type="email"
                     className="input"
@@ -142,11 +148,30 @@ const Register = () => {
                   <div>
                     <div className="relative">
                       <input
-                        {...register("password")}
+                        {...register("password", {
+                          required: true,
+                          minLength: 6,
+                          pattern:
+                            /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{6,}$/,
+                        })}
                         type={showPassword ? "text" : "password"}
                         className="input"
                         placeholder="Password"
                       />
+                      {errors.password?.type === "required" && (
+                        <p className="text-red-500">Password is required.</p>
+                      )}
+                      {errors.password?.type === "minLength" && (
+                        <p className="text-red-500">
+                          Password must be 6 character long.
+                        </p>
+                      )}
+                      {errors.password?.type === "pattern" && (
+                        <p className="text-red-500">
+                          Password must have a big letter , a small latter , a
+                          special character and a number.
+                        </p>
+                      )}
                       <button
                         onClick={handleShowPassword}
                         className="btn border-none btn-xs absolute top-2 right-2">

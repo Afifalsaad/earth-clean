@@ -1,18 +1,16 @@
-import React, { use } from "react";
-import { AuthContext } from "../../Provider/AuthProvider";
-import toast, { Toaster } from "react-hot-toast";
+import React from "react";
+import { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
+import UseAuth from "../Context/UseAuth";
 
 const AddIssues = () => {
-  const { user } = use(AuthContext);
-  
+  const { user } = UseAuth();
 
   const handleAddIssue = (e) => {
     e.preventDefault();
-    
 
     const title = e.target.title.value;
-    const select = e.target.select.value;
+    const select = e.target.category.value;
     const location = e.target.location.value;
     const description = e.target.description.value;
     const email = e.target.email.value;
@@ -42,12 +40,11 @@ const AddIssues = () => {
         Swal.fire({
           title: "Issue Added!",
           icon: "success",
-          
+
           // draggable: true
         });
-        
       });
-      e.target.reset()
+    e.target.reset();
   };
 
   return (
@@ -55,88 +52,113 @@ const AddIssues = () => {
       <div>
         <Toaster />
       </div>
-      <div className="hero min-h-screen">
-        <div className="flex-col lg:flex-row-reverse">
-          <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-            <div className="card-body bg-[#e7ecf9]">
-              <form onSubmit={handleAddIssue} className="">
-                <h1 className="text-center text-xl font-semibold mb-8">
-                  Add Issue
-                </h1>
+      <div
+        className="min-h-screen flex items-center justify-center 
+        bg-secondary p-4 transition-colors">
+        <div className="w-full max-w-3xl bg-base-200 rounded-xl shadow-lg p-6 md:p-10">
+          <h2 className="text-2xl font-bold text-center mb-8">
+            Post a New Issue
+          </h2>
 
-                <fieldset className="fieldset grid grid-cols-2 gap-6">
-                  <div>
-                    <label className="text-[14px]">Issue Title</label>
-                    <input
-                      name="title"
-                      type="text"
-                      className="my-1 p-1 border border-black/10 bg-white/30"
-                    />
-                    <fieldset className="fieldset">
-                      <legend className="">Category</legend>
-                      <select
-                        name="select"
-                        defaultValue="Select"
-                        className="select bg-white/30">
-                        <div className="bg-white">
-                          <option>Select</option>
-                          <option>Garbage</option>
-                          <option>Illegal Construction</option>
-                          <option>Road Damage</option>
-                          <option>Broken Public Property</option>
-                        </div>
-                      </select>
-                    </fieldset>
-                    <label className="text-[14px]">Location</label>
-                    <input
-                      name="location"
-                      type="text"
-                      className="my-1 p-1 border border-black/10 bg-white/30"
-                    />
-                    <label className="text-[14px]">Description</label>
-                    <textarea className="bg-white" name="description" id="">
-                      
-                    </textarea>
-                    
-                  </div>
-                  <div>
-                    <label className="text-[14px]">Email</label>
-                    <input
-                      readOnly
-                      defaultValue={user.email}
-                      name="email"
-                      type="email"
-                      className="my-1 p-1 border border-black/10 bg-white/30"
-                    />
-                    <label className="text-[14px]">Image</label>
-                    <input
-                      name="image"
-                      type="text"
-                      className="my-1 p-1 border border-black/10 bg-white/30"
-                    />
-                    <label className="text-[14px]">Amount</label>
-                    <input
-                      name="amount"
-                      type="text"
-                      className="my-1 p-1 border border-black/10 bg-white/30"
-                    />
-                    <label className="text-[14px]">Status</label>
-                    <input
-                      name="status"
-                      type="text"
-                      defaultValue="ongoing"
-                      className="my-1 p-1 border border-black/10 bg-white/30"
-                    />
-                  </div>
-                </fieldset>
-                <button
-                  type="submit"
-                  className="bg-sky-950 mt-4 w-full py-1 px-4 hover:cursor-pointer text-white">
-                  Add Issue
-                </button>
-              </form>
+          <form
+            onSubmit={handleAddIssue}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Left */}
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  Issue Title
+                </label>
+                <input
+                  name="title"
+                  required
+                  className="input input-bordered w-full"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  Category
+                </label>
+                <select
+                  name="category"
+                  required
+                  className="select select-bordered w-full">
+                  <option value="">Select Category</option>
+                  <option>Garbage</option>
+                  <option>Illegal Construction</option>
+                  <option>Road Damage</option>
+                  <option>Broken Public Property</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  Location
+                </label>
+                <input
+                  name="location"
+                  required
+                  className="input input-bordered w-full"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  Description
+                </label>
+                <textarea
+                  name="description"
+                  rows="4"
+                  className="textarea textarea-bordered w-full"
+                />
+              </div>
             </div>
-          </div>
+
+            {/* Right */}
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">Email</label>
+                <input
+                  name="email"
+                  readOnly
+                  defaultValue={user.email}
+                  className="input input-bordered w-full"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  Image URL
+                </label>
+                <input name="image" className="input input-bordered w-full" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Amount</label>
+                <input
+                  name="amount"
+                  type="number"
+                  required
+                  className="input input-bordered w-full"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Status</label>
+                <select name="status" className="select select-bordered w-full">
+                  <option value="ongoing">Ongoing</option>
+                  <option value="ended">Ended</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="md:col-span-2">
+              <button type="submit" className="btn btn-primary w-full text-lg">
+                Submit Issue
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

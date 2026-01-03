@@ -7,7 +7,6 @@ import useAxiosSecure from "../../Hook/useAxiosSecure";
 const MyIssues = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
-  // const [issues, setIssues] = useState([]);
   const modalRef = useRef();
   const [selectedIssue, setSelectedIssue] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -20,18 +19,6 @@ const MyIssues = () => {
       return res.data;
     },
   });
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //   fetch(
-  //     `https://assignment-10-server-jet-nine.vercel.app/myIssues?email=${user?.email}`
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setIssues(data);
-  //       setLoading(false);
-  //     });
-  // }, [user]);
 
   const handleModal = (issue) => {
     setSelectedIssue(issue);
@@ -122,16 +109,16 @@ const MyIssues = () => {
   };
 
   return (
-    <div>
+    <div className="bg-secondary ">
       <div className="overflow-x-auto min-h-screen max-w-6xl mx-auto mb-14">
         <h1 className="text-center text-2xl font-bold my-7 ">
           My Issues : <span className="text-[#0084d1]">{issues.length}</span>
         </h1>
-        <div className="md:hidden space-y-4 p-2 ">
+        <div className="md:hidden space-y-4 p-2 bg-secondary text-accent">
           {issues.map((issue, index) => (
             <div
               key={issue._id}
-              className="border dark:text-red-500 p-4 rounded shadow bg-sky-100">
+              className="border p-4 rounded bg-base-200 shadow">
               <p className="font-bold">
                 {index + 1}. {issue.title}
               </p>
@@ -144,7 +131,7 @@ const MyIssues = () => {
               </button>
               <button
                 onClick={() => handleDelete(issue)}
-                className="bg-red-600 text-white py-1 px-2 mt-2 rounded w-full">
+                className="btn btn-primary text-white py-1 px-2 mt-2 rounded w-full">
                 Delete
               </button>
             </div>
@@ -164,8 +151,8 @@ const MyIssues = () => {
           </div>
         ) : (
           <div>
-            <div className="hidden lg:block ">
-              <table className="table bg-white">
+            <div className="hidden md:block ">
+              <table className="table bg-secondary text-accent">
                 <thead>
                   <tr>
                     <th></th>
@@ -202,7 +189,7 @@ const MyIssues = () => {
                       <td>
                         <button
                           onClick={() => handleModal(issue)}
-                          className="bg-sky-950 mt-4 w-full py-1 px-1 hover:cursor-pointer text-white">
+                          className="bg-primary mt-4 w-full py-1 px-1 hover:cursor-pointer rounded-sm">
                           Update
                         </button>
                       </td>
@@ -210,7 +197,7 @@ const MyIssues = () => {
                       <td>
                         <button
                           onClick={() => handleDelete(issue)}
-                          className="bg-sky-950 mt-4 w-full py-1 px-1 hover:cursor-pointer text-white">
+                          className="bg-primary mt-4 w-full py-1 px-1 hover:cursor-pointer rounded-sm">
                           Delete
                         </button>
                       </td>

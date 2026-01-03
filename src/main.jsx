@@ -20,7 +20,6 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import PaymentSuccess from "./Components/Payment/PaymentSuccess.jsx";
 import PaymentCancelled from "./Components/Payment/PaymentCancelled.jsx";
 import Dashboard from "./Components/Dashboard/Dashboard.jsx";
-import AdminRoute from "./Components/Routes/AdminRoute.jsx";
 
 const queryClient = new QueryClient();
 
@@ -45,11 +44,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/allIssues",
-        element: (
-          <PrivateRoute>
-            <AllIssues></AllIssues>
-          </PrivateRoute>
-        ),
+        element: <AllIssues></AllIssues>,
         loader: () =>
           fetch("https://assignment-10-server-jet-nine.vercel.app/allIssues"),
       },
@@ -74,22 +69,10 @@ const router = createBrowserRouter([
         Component: PaymentCancelled,
       },
       {
-        path: "dashboard",
-        element: (
-          <AdminRoute>
-            <Dashboard></Dashboard>
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "dashboard",
-      },
-      {
         path: "/myIssues",
         element: (
           <PrivateRoute>
             <MyIssues></MyIssues>
-            //{" "}
           </PrivateRoute>
         ),
       },
@@ -110,6 +93,10 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/dashboard",
+    Component: Dashboard,
   },
   {
     path: "/*",
