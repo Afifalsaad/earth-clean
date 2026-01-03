@@ -1,12 +1,12 @@
 import React from "react";
 import useRole from "../../Hook/useRole";
-import Navbar from "../Navbar/Navbar";
 import { Link, Outlet } from "react-router";
 import { FaShoppingCart, FaUsersCog } from "react-icons/fa";
 import { AiFillProduct } from "react-icons/ai";
 import { MdBorderColor, MdOutlinePendingActions } from "react-icons/md";
 import { FaRegUser, FaTruckFast } from "react-icons/fa6";
 import Footer from "../Footer/Footer";
+import Navbar from "./NavBar";
 
 const Dashboard = () => {
   const { role } = useRole();
@@ -53,7 +53,7 @@ const Dashboard = () => {
               className="drawer-overlay"></label>
             <div className="flex min-h-full flex-col items-start bg-primary/10  is-drawer-close:w-14 is-drawer-open:w-64">
               {/* Sidebar content here */}
-              <ul className="menu w-full grow bg-yellow-100 lg:bg-primary/5">
+              <ul className="menu w-full grow bg-primary lg:bg-primary/5">
                 {/* List item */}
                 <Link to="/dashboard">
                   <li>
