@@ -16,7 +16,7 @@ const Dashboard = () => {
   useEffect(() => {
     const path = location.pathname;
 
-    if (path === "/home") {
+    if (path === "/") {
       document.title = "DashBoard";
     } else if (path.startsWith("/dashboard/allIssues")) {
       document.title = "All Issues";
@@ -74,7 +74,7 @@ const Dashboard = () => {
               {/* Sidebar content here */}
               <ul className="menu w-full grow bg-white lg:bg-primary/5">
                 {/* List item */}
-                <Link to="/dashboard/home">
+                <Link to="/dashboard">
                   <li>
                     <button
                       className="is-drawer-close:tooltip is-drawer-close:tooltip-right"

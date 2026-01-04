@@ -4,6 +4,7 @@ import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import icon from "../../assets/icons8-earth-48.png";
 import UseAuth from "../../Components/Context/UseAuth";
 import Swal from "sweetalert2";
+import { RxAvatar } from "react-icons/rx";
 
 const Navbar = () => {
   const [dropdown, setDropdown] = useState(false);
@@ -50,11 +51,15 @@ const Navbar = () => {
           <button
             onClick={() => setDropdown((p) => !p)}
             className="flex items-center gap-2 focus:outline-none group">
-            <img
-              src={user?.image}
-              className="w-8 h-8 rounded-full ring-2 ring-indigo-400 dark:ring-indigo-500 transition group-hover:ring-indigo-600"
-              alt="profile"
-            />
+            {user.photoURL ? (
+              <img
+                className="w-9 h-9 rounded-full object-cover"
+                src={user.photoURL}
+                alt="avatar"
+              />
+            ) : (
+              <RxAvatar className="text-3xl" />
+            )}
           </button>
 
           {dropdown && (

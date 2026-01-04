@@ -7,7 +7,7 @@ const Blogs = () => {
     const colors = ["bg-primary/10", "bg-secondary/10", "bg-accent/10", "bg-info/10"];
   
     return (
-      <section className="py-16 bg-secondary">
+      <section className="py-6 bg-secondary">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl font-semibold mb-12 text-center text-primary">Blogs</h2>
           <div className="grid md:grid-cols-2 gap-6">

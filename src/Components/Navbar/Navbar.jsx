@@ -137,7 +137,7 @@ const Navbar = () => {
                   tabIndex={0}
                   className="menu menu-sm dropdown-content mt-5 p-2 shadow bg-secondary rounded-box w-44">
                   <li>
-                    <span className="text-sm text-accent cursor-default">
+                    <span className="text-sm text-accent font-bold cursor-default">
                       {user.displayName || "User"}
                     </span>
                   </li>
@@ -145,17 +145,7 @@ const Navbar = () => {
                     <NavLink to="/profile">Profile</NavLink>
                   </li>
                   <li>
-                    <NavLink to="/settings">Settings</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/allIssues">
-                      Blogs
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/allIssues">
-                      Contact Us
-                    </NavLink>
+                    <NavLink to="/About-us">About Us</NavLink>
                   </li>
                   <li>
                     <button onClick={handleSignOut} className="text-error">

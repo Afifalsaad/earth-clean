@@ -24,11 +24,12 @@ import Dashboard from "./Components/Dashboard/Dashboard.jsx";
 import DashboardHome from "./Components/Dashboard/DashboardHome.jsx";
 import AllContributions from "./Components/Dashboard/AllContributions.jsx";
 import AllIssuesDashboard from "./Components/Dashboard/AllIssuesDashboard.jsx";
-import Profile from "./Components/Dashboard/Profile.jsx";
+import ProfileDasboard from "./Components/Dashboard/Profile.jsx";
 import AllUsers from "./Components/Dashboard/AllUsers.jsx";
 import AboutUsDashboard from "./Components/Dashboard/AboutUs.jsx";
 import PrivacyPolicyDashboard from "./Components/Dashboard/PrivacyPolicy.jsx";
 import PrivacyPolicy from "./Components/Privacy Policy/PrivacyPolicy.jsx";
+import Profile from "./Components/Profile/Profile.jsx";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         Component: Register,
+      },
+      {
+        path: "/profile",
+        Component: Profile,
       },
       {
         path: "/allIssues",
@@ -120,7 +125,7 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "home",
+        index: true,
         Component: DashboardHome,
       },
       {
@@ -145,7 +150,7 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
-        Component: Profile,
+        Component: ProfileDasboard,
       },
     ],
   },

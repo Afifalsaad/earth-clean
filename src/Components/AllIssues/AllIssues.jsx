@@ -12,7 +12,7 @@ const AllIssues = () => {
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey: ["issues"],
-      queryFn: async ({ pageParam = 1 }) => {
+      queryFn: async ({ pageParam = 0 }) => {
         const res = await axiosSecure.get(
           `/allIssues?limit=${limit}&skip=${pageParam}`
         );
