@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 const AllIssuesDashboard = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: issues = [] } = useQuery({
+  const { data: issues = [], isLoading } = useQuery({
     queryKey: ["issues"],
     queryFn: async () => {
       const res = await axiosSecure.get("/All-issues-dashboard");
@@ -13,6 +13,18 @@ const AllIssuesDashboard = () => {
       return res.data;
     },
   });
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center mx-auto">
+        <div className="loader">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -49,24 +61,24 @@ const AllIssuesDashboard = () => {
         </div>
 
         {/* Responsive Cards */}
-        <div className="md:hidden space-y-4">
-          {issues.map((user) => (
+        <div className="md:hidden space-y-4 text-accent">
+          {issues.map((issue) => (
             <div
-              key={user._id}
+              key={issue._id}
               className="p-4 border rounded-lg shadow-sm bg-base-100">
               <div className="flex items-center gap-3 mb-3">
-                <div className="avatar">
-                  <div className="mask mask-squircle h-14 w-14">
-                    <img src={user?.photoURL} />
-                  </div>
-                </div>
-                <h3 className="font-semibold">{user.userName}</h3>
+                <h3 className="font-semibold">{issue.title}</h3>
               </div>
               <h2>
-                <span className="font-semibold"></span>Email: {user.userEmail}
+                <span className="font-semibold"></span>Email: {issue.category}
               </h2>
               <p>
-                <span className="font-semibold mb-3">Role: </span> {user.role}
+                <span className="font-semibold mb-3">Role: </span>{" "}
+                {issue.location}
+              </p>
+              <p>
+                <span className="font-semibold mb-3">Role: </span>{" "}
+                {issue.amount}
               </p>
             </div>
           ))}

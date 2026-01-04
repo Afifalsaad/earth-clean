@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: users = [] } = useQuery({
+  const { data: users = [], isLoading } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users");
@@ -13,6 +13,18 @@ const AllUsers = () => {
       return res.data;
     },
   });
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center mx-auto">
+        <div className="loader">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -60,21 +72,16 @@ const AllUsers = () => {
         </div>
 
         {/* Responsive Cards */}
-        <div className="md:hidden space-y-4">
+        <div className="md:hidden space-y-4 bg-secondary text-accent">
           {users.map((user) => (
             <div
               key={user._id}
               className="p-4 border rounded-lg shadow-sm bg-base-100">
               <div className="flex items-center gap-3 mb-3">
-                <div className="avatar">
-                  <div className="mask mask-squircle h-14 w-14">
-                    <img src={user?.photoURL} />
-                  </div>
-                </div>
-                <h3 className="font-semibold">{user.userName}</h3>
+                <h3 className="font-semibold">{user.name}</h3>
               </div>
               <h2>
-                <span className="font-semibold"></span>Email: {user.userEmail}
+                <span className="font-semibold"></span>Email: {user.email}
               </h2>
               <p>
                 <span className="font-semibold mb-3">Role: </span> {user.role}

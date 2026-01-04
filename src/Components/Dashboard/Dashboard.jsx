@@ -64,9 +64,13 @@ const Dashboard = () => {
           </div>
 
           <div className="drawer-side is-drawer-close:overflow-visible">
+            <label
+              htmlFor="my-drawer-4"
+              aria-label="close sidebar"
+              className="drawer-overlay"></label>
             <div className="flex min-h-full flex-col items-start bg-primary/10  is-drawer-close:w-14 is-drawer-open:w-64">
               {/* Sidebar content here */}
-              <ul className="menu w-full grow bg-primary lg:bg-primary/5">
+              <ul className="menu w-full grow bg-white lg:bg-primary/5">
                 {/* List item */}
                 <Link to="/dashboard/home">
                   <li>
