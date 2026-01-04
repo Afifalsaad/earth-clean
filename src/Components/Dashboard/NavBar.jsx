@@ -60,14 +60,24 @@ const Navbar = () => {
           {dropdown && (
             <div className="absolute z-20 right-0 mt-4 w-48 bg-secondary text-accent shadow-xl rounded-xl border border-indigo-100 overflow-hidden origin-top-right animate-dropdown">
               <Link
-                to="/profile"
+                to="/dashboard/profile"
                 className="block px-4 py-2 text-s hover:bg-white/20 transition">
                 Profile
               </Link>
               <Link
-                to="/dashboard"
+                to="/dashboard/home"
                 className="block px-4 py-2 text-sm hover:bg-white/20 transition">
                 Dashboard Home
+              </Link>
+              <Link
+                to="/dashboard/aboutUs"
+                className="block px-4 py-2 text-sm hover:bg-white/20 transition">
+                About Us
+              </Link>
+              <Link
+                to="/dashboard/privacy-policy"
+                className="block px-4 py-2 text-sm hover:bg-white/20 transition">
+                Privacy Policy
               </Link>
               <button
                 onClick={handleSignOut}

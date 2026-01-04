@@ -6,6 +6,8 @@ import { AiOutlineIssuesClose } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa6";
 import Footer from "../Footer/Footer";
 import Navbar from "./NavBar";
+import { CiCircleQuestion } from "react-icons/ci";
+import { MdOutlinePrivacyTip } from "react-icons/md";
 
 const Dashboard = () => {
   const { role } = useRole();
@@ -95,7 +97,7 @@ const Dashboard = () => {
                   </li>
                 </Link>
                 {/* List item */}
-                {/* Manage User */}
+                {/* All Issues */}
                 {role === "admin" && (
                   <>
                     <Link to="/dashboard/allIssues">
@@ -114,7 +116,7 @@ const Dashboard = () => {
                   </>
                 )}
 
-                {/* All Products */}
+                {/* All Contributions */}
                 {role === "admin" && (
                   <>
                     <Link to="/dashboard/allContributions">
@@ -132,7 +134,7 @@ const Dashboard = () => {
                     </Link>
                   </>
                 )}
-                {/* All Orders */}
+                {/* All Users */}
                 {role === "admin" && (
                   <>
                     <Link to="/dashboard/AllUsers">
@@ -158,6 +160,30 @@ const Dashboard = () => {
                       data-tip="my profile">
                       {/* Icon */}
                       <FaRegUser />
+                      <span className="is-drawer-close:hidden">My Profile</span>
+                    </button>
+                  </li>
+                </Link>
+                {/* About Us */}
+                <Link to="/dashboard/aboutUs">
+                  <li>
+                    <button
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="about us">
+                      {/* Icon */}
+                      <CiCircleQuestion />
+                      <span className="is-drawer-close:hidden">My Profile</span>
+                    </button>
+                  </li>
+                </Link>
+                {/* Privacy Policy */}
+                <Link to="/dashboard/privacy-policy">
+                  <li>
+                    <button
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="privacy policy">
+                      {/* Icon */}
+                      <MdOutlinePrivacyTip />
                       <span className="is-drawer-close:hidden">My Profile</span>
                     </button>
                   </li>

@@ -9,6 +9,7 @@ const Profile = () => {
 
   const [profile, setProfile] = useState({
     name: `${user.displayName}`,
+    role: 'Role',
     about:
       "Nature worker focused on environmental conservation, sustainability, and community awareness. Dedicated to protecting ecosystems and promoting responsible interaction with the natural world.",
     email: `${user.email}`,

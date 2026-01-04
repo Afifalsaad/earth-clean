@@ -88,6 +88,12 @@ const Navbar = () => {
             <NavLink className="text-sm mr-4" to="/allIssues">
               All Issues
             </NavLink>
+            <NavLink className="text-sm mr-4" to="/About-us">
+              About Us
+            </NavLink>
+            <NavLink className="text-sm mr-4" to="/Privacy-policy">
+              Privacy Policy
+            </NavLink>
 
             {user && (
               <>
