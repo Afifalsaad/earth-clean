@@ -20,6 +20,11 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import PaymentSuccess from "./Components/Payment/PaymentSuccess.jsx";
 import PaymentCancelled from "./Components/Payment/PaymentCancelled.jsx";
 import Dashboard from "./Components/Dashboard/Dashboard.jsx";
+import DashboardHome from "./Components/Dashboard/DashboardHome.jsx";
+import AllContributions from "./Components/Dashboard/AllContributions.jsx";
+import AllIssuesDashboard from "./Components/Dashboard/AllIssuesDashboard.jsx";
+import Profile from "./Components/Dashboard/Profile.jsx";
+import AllUsers from "./Components/Dashboard/AllUsers.jsx";
 
 const queryClient = new QueryClient();
 
@@ -96,7 +101,33 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    Component: Dashboard,
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "home",
+        Component: DashboardHome,
+      },
+      {
+        path: "allIssues",
+        Component: AllIssuesDashboard,
+      },
+      {
+        path: "allContributions",
+        Component: AllContributions,
+      },
+      {
+        path: "allUsers",
+        Component: AllUsers,
+      },
+      {
+        path: "profile",
+        Component: Profile,
+      },
+    ],
   },
   {
     path: "/*",

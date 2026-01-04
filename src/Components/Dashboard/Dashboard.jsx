@@ -1,15 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useRole from "../../Hook/useRole";
-import { Link, Outlet } from "react-router";
-import { FaShoppingCart, FaUsersCog } from "react-icons/fa";
-import { AiFillProduct } from "react-icons/ai";
-import { MdBorderColor, MdOutlinePendingActions } from "react-icons/md";
-import { FaRegUser, FaTruckFast } from "react-icons/fa6";
+import { Link, Outlet, useLocation } from "react-router";
+import { FaMoneyCheckAlt, FaUsers } from "react-icons/fa";
+import { AiOutlineIssuesClose } from "react-icons/ai";
+import { FaRegUser } from "react-icons/fa6";
 import Footer from "../Footer/Footer";
 import Navbar from "./NavBar";
 
 const Dashboard = () => {
   const { role } = useRole();
+  const location = useLocation();
+
+  useEffect(() => {
+    const path = location.pathname;
+
+    if (path === "/home") {
+      document.title = "DashBoard";
+    } else if (path.startsWith("/dashboard/allIssues")) {
+      document.title = "All Issues";
+    } else if (path === "/dashboard/allContributions") {
+      document.title = "All Contributions";
+    } else if (path === "/dashboard/allUsers") {
+      document.title = "All users";
+    } else if (path === "/dashboard/profile") {
+      document.title = "Profile";
+    }
+  }, [location.pathname]);
+
   return (
     <div>
       <div className="bg-secondary text-accent">
@@ -47,15 +64,11 @@ const Dashboard = () => {
           </div>
 
           <div className="drawer-side is-drawer-close:overflow-visible">
-            <label
-              htmlFor="my-drawer-4"
-              aria-label="close sidebar"
-              className="drawer-overlay"></label>
             <div className="flex min-h-full flex-col items-start bg-primary/10  is-drawer-close:w-14 is-drawer-open:w-64">
               {/* Sidebar content here */}
               <ul className="menu w-full grow bg-primary lg:bg-primary/5">
                 {/* List item */}
-                <Link to="/dashboard">
+                <Link to="/dashboard/home">
                   <li>
                     <button
                       className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -81,15 +94,15 @@ const Dashboard = () => {
                 {/* Manage User */}
                 {role === "admin" && (
                   <>
-                    <Link to="/dashboard/manage-user">
+                    <Link to="/dashboard/allIssues">
                       <li>
                         <button
                           className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                          data-tip="manage user">
+                          data-tip="all issues">
                           {/* Icon */}
-                          <FaUsersCog />
+                          <AiOutlineIssuesClose />
                           <span className="is-drawer-close:hidden">
-                            Manage Users
+                            All Issues
                           </span>
                         </button>
                       </li>
@@ -100,15 +113,15 @@ const Dashboard = () => {
                 {/* All Products */}
                 {role === "admin" && (
                   <>
-                    <Link to="/dashboard/all-products-admin">
+                    <Link to="/dashboard/allContributions">
                       <li>
                         <button
                           className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                          data-tip="all products">
+                          data-tip="all contributions">
                           {/* Icon */}
-                          <AiFillProduct />
+                          <FaMoneyCheckAlt />
                           <span className="is-drawer-close:hidden">
-                            All Issues
+                            All Contributions
                           </span>
                         </button>
                       </li>
@@ -118,129 +131,23 @@ const Dashboard = () => {
                 {/* All Orders */}
                 {role === "admin" && (
                   <>
-                    <Link to="/dashboard/all-orders">
+                    <Link to="/dashboard/AllUsers">
                       <li>
                         <button
                           className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                          data-tip="all orders">
+                          data-tip="all users">
                           {/* Icon */}
-                          <MdBorderColor />
+                          <FaUsers />
                           <span className="is-drawer-close:hidden">
-                            All Contributions
+                            All Users
                           </span>
                         </button>
                       </li>
                     </Link>
                   </>
-                )}
-                {/* Manager Only Routes */}
-                {/* Add Products */}
-                {role === "Manager" && (
-                  <>
-                    <Link to="/dashboard/add-products">
-                      <li>
-                        <button
-                          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                          data-tip="add products">
-                          {/* Icon */}
-                          <IoMdAddCircle />
-                          <span className="is-drawer-close:hidden">
-                            Add Products
-                          </span>
-                        </button>
-                      </li>
-                    </Link>
-                  </>
-                )}
-                {/* Manage Products */}
-                {role === "Manager" && (
-                  <>
-                    <Link to="/dashboard/manage-products">
-                      <li>
-                        <button
-                          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                          data-tip="manage products">
-                          {/* Icon */}
-                          <IoSettings />
-                          <span className="is-drawer-close:hidden">
-                            Manage Products
-                          </span>
-                        </button>
-                      </li>
-                    </Link>
-                  </>
-                )}
-                {/* Pending orders */}
-                {role === "Manager" && (
-                  <>
-                    <Link to="/dashboard/pending-orders">
-                      <li>
-                        <button
-                          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                          data-tip="pending orders">
-                          {/* Icon */}
-                          <MdOutlinePendingActions />
-                          <span className="is-drawer-close:hidden">
-                            Pending Orders
-                          </span>
-                        </button>
-                      </li>
-                    </Link>
-                  </>
-                )}
-                {/* Approved orders */}
-                {role === "Manager" && (
-                  <>
-                    <Link to="/dashboard/approved-orders">
-                      <li>
-                        <button
-                          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                          data-tip="approved orders">
-                          {/* Icon */}
-                          <SiTicktick />
-                          <span className="is-drawer-close:hidden">
-                            Approved Orders
-                          </span>
-                        </button>
-                      </li>
-                    </Link>
-                  </>
-                )}
-                {/* Buyer Only */}
-                {/* My Orders */}
-                {role === "Buyer" && (
-                  <Link to="/dashboard/my-orders">
-                    <li>
-                      <button
-                        className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                        data-tip="My Orders">
-                        {/* Icon */}
-                        <FaShoppingCart />
-                        <span className="is-drawer-close:hidden">
-                          My Orders
-                        </span>
-                      </button>
-                    </li>
-                  </Link>
-                )}
-                {/* Track Order */}
-                {role === "Buyer" && (
-                  <Link to="track-order">
-                    <li>
-                      <button
-                        className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                        data-tip="track order">
-                        {/* Icon */}
-                        <FaTruckFast />
-                        <span className="is-drawer-close:hidden">
-                          Track Order
-                        </span>
-                      </button>
-                    </li>
-                  </Link>
                 )}
                 {/* Profile */}
-                <Link to="/my-profile">
+                <Link to="/dashboard/profile">
                   <li>
                     <button
                       className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
