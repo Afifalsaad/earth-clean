@@ -69,6 +69,10 @@ const Navbar = () => {
                   <NavLink className="" to="/myContribution">
                     My Contribution
                   </NavLink>
+                  <br />
+                  <NavLink className="" to="/dashboard">
+                    Dashboard
+                  </NavLink>
                 </ul>
               </li>
             </ul>
