@@ -6,9 +6,9 @@ import { Fade, Hinge, JackInTheBox } from "react-awesome-reveal";
 const JoinCommunity = () => {
   return (
     <div>
-      <div className="text-center text-4xl font-bold">
+      <div className="text-center text-2xl font-bold">
         <JackInTheBox>
-        <h1 className="text-center text-4xl font-bold text-sky-900 my-14">Become one of us.</h1>
+        <h1 className="text-center text-4xl font-bold text-accent my-4">Become one of us.</h1>
         </JackInTheBox>
       </div>
       <section className="bg-linear-to-r from-green-600 to-teal-600 text-white py-16">

@@ -4,13 +4,13 @@ const PrivacyPolicy = () => {
   const Section = ({ title, children }) => (
     <div className="mb-5">
       <h2 className="text-xl font-semibold mb-2">{title}</h2>
-      <p className="text-gray-700 leading-relaxed">{children}</p>
+      <p className="leading-relaxed">{children}</p>
     </div>
   );
   return (
     <div>
       <div className="w-full min-h-screen bg-secondary px-6 py-12">
-        <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-md p-8">
+        <div className="max-w-5xl mx-auto bg-secondary text-accent rounded-2xl shadow-md p-8">
           <h1 className="text-3xl font-semibold mb-6">Privacy Policy</h1>
 
           <Section title="Information We Collect">

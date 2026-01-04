@@ -9,9 +9,9 @@ const CommunityState = () => {
 
   return (
     <div>
-      <section className="py-16 bg-base-200 dark:bg-gray-900">
+      <section className="pt-4 bg-secondary dark:bg-gray-900">
         <div className="max-w-6xl mx-auto text-center px-4">
-          <h2 className="text-3xl font-bold mb-10 text-primary">
+          <h2 className="text-2xl font-bold mb-10 text-accent">
             Community Stats Of Ours
           </h2>
 

@@ -12,6 +12,11 @@ import CategoryCards from "../CategoryCards/CategoryCards";
 import CommunityState from "../CommunityStats.jsx/CommunityState";
 import JoinCommunity from "../JoinCommunity/JoinCommunity";
 import Skeleton from "../skeleton/Skeleton";
+import Reviews from "../Reviews/Reviews";
+import Features from "../Features/Features";
+import Services from "../Services/Services";
+import Highlights from "../Highlights/Highlights";
+import Blogs from "../Blogs/Blogs";
 
 const Home = () => {
   const [issues, setIssues] = useState([]);
@@ -140,6 +145,26 @@ const Home = () => {
 
         <div className="my-14">
           <JoinCommunity></JoinCommunity>
+        </div>
+
+        <div>
+          <Reviews></Reviews>
+        </div>
+
+        <div>
+          <Features></Features>
+        </div>
+
+        <div>
+          <Services></Services>
+        </div>
+
+        <div>
+          <Highlights></Highlights>
+        </div>
+
+        <div>
+          <Blogs></Blogs>
         </div>
       </div>
     </div>
